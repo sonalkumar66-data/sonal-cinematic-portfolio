@@ -59,7 +59,6 @@
             opacity: 0; transition: opacity 0.5s; pointer-events: none;
         }
         .hero-card:hover::before { opacity: 1; }
-        
         .hero-card > * { position: relative; z-index: 1; }
 
         .profile-img {
@@ -74,7 +73,7 @@
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
-        /* ROLES MOTION & GLOW */
+        /* ROLES MOTION & CLICK EFFECT */
         .role-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 35px; flex-wrap: wrap; }
         .role-pill {
             display: inline-block; 
@@ -82,9 +81,11 @@
             border: 1px solid var(--border); background: rgba(255,255,255,0.03);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer;
         }
-        .role-pill.da:hover { transform: translateY(-3px) scale(1.05); color: #fff; background: var(--sql-blue); border-color: var(--sql-blue); box-shadow: 0 10px 25px rgba(96, 165, 250, 0.4); }
-        .role-pill.pbi:hover { transform: translateY(-3px) scale(1.05); color: #000; background: var(--bi-yellow); border-color: var(--bi-yellow); box-shadow: 0 10px 25px rgba(242, 200, 17, 0.4); }
-        .role-pill.mis:hover { transform: translateY(-3px) scale(1.05); color: #fff; background: var(--excel-green); border-color: var(--excel-green); box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4); }
+        .role-pill:hover { transform: translateY(-3px) scale(1.05); }
+        
+        .role-pill.da:hover { color: #fff; background: var(--sql-blue); border-color: var(--sql-blue); box-shadow: 0 10px 25px rgba(96, 165, 250, 0.4); }
+        .role-pill.pbi:hover { color: #000; background: var(--bi-yellow); border-color: var(--bi-yellow); box-shadow: 0 10px 25px rgba(242, 200, 17, 0.4); }
+        .role-pill.mis:hover { color: #fff; background: var(--excel-green); border-color: var(--excel-green); box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4); }
 
         /* MAGNETIC BUTTONS */
         .hero-btns { display: flex; gap: 15px; justify-content: center; margin-bottom: 35px; flex-wrap: wrap; }
@@ -100,11 +101,7 @@
 
         /* CONTACT INFO */
         .contact-info { display: flex; gap: 25px; flex-wrap: wrap; justify-content: center; font-size: 0.95rem; }
-        .contact-info a { 
-            color: var(--text-muted); text-decoration: none; 
-            display: inline-flex; align-items: center; gap: 8px; 
-            transition: 0.3s; cursor: pointer; padding: 5px;
-        }
+        .contact-info a { color: var(--text-muted); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: 0.3s; cursor: pointer; padding: 5px; }
         .contact-info a:hover { color: #fff; transform: translateY(-2px); text-shadow: 0 0 10px rgba(255,255,255,0.3); }
         .contact-info i { color: var(--sql-blue); }
 
@@ -114,12 +111,10 @@
         
         .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 25px; }
         
-        /* 3D TILT CARDS */
         .bento-card {
             background: var(--surface); border: 1px solid var(--border); border-radius: 20px;
             padding: 35px; position: relative; overflow: hidden;
-            transition: transform 0.1s ease, border-color 0.3s, box-shadow 0.3s;
-            transform-style: preserve-3d;
+            transition: transform 0.1s ease, border-color 0.3s, box-shadow 0.3s; transform-style: preserve-3d;
         }
         .bento-card:hover { border-color: rgba(96, 165, 250, 0.4); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
         .bento-content { transform: translateZ(10px); }
@@ -163,6 +158,44 @@
         .edu-item h4 { color: #fff; font-size: 1.1rem; margin-bottom: 6px; display: flex; justify-content: space-between; }
         .edu-item p { color: var(--text-muted); font-size: 0.95rem; }
 
+        /* --- MODAL POPUP CSS --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(8px);
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s ease; z-index: 9999;
+        }
+        .modal-overlay.active { opacity: 1; pointer-events: all; }
+        
+        .modal-box {
+            background: #0d1117; border: 1px solid var(--sql-blue); border-radius: 20px;
+            padding: 40px; max-width: 500px; width: 90%; position: relative;
+            transform: translateY(30px) scale(0.95); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 50px rgba(96, 165, 250, 0.2);
+        }
+        .modal-overlay.active .modal-box { transform: translateY(0) scale(1); }
+        
+        .close-modal {
+            position: absolute; top: 15px; right: 20px; font-size: 1.5rem;
+            color: var(--text-muted); cursor: pointer; transition: 0.3s;
+        }
+        .close-modal:hover { color: #fff; transform: rotate(90deg); }
+        
+        .modal-box h3 { font-family: 'Syne', sans-serif; font-size: 1.8rem; margin-bottom: 10px; }
+        .modal-box p { color: var(--text-muted); font-size: 1rem; line-height: 1.7; margin-bottom: 20px; }
+        .modal-box ul { color: var(--text-main); font-size: 0.95rem; padding-left: 20px; line-height: 1.8; }
+        .modal-box ul li { margin-bottom: 8px; }
+
+        /* Dynamic Glow Classes for Modal */
+        .modal-da .modal-box { border-color: var(--sql-blue); box-shadow: 0 0 50px rgba(96, 165, 250, 0.2); }
+        .modal-da h3 { color: var(--sql-blue); }
+        
+        .modal-pbi .modal-box { border-color: var(--bi-yellow); box-shadow: 0 0 50px rgba(242, 200, 17, 0.2); }
+        .modal-pbi h3 { color: var(--bi-yellow); }
+        
+        .modal-mis .modal-box { border-color: var(--excel-green); box-shadow: 0 0 50px rgba(16, 185, 129, 0.2); }
+        .modal-mis h3 { color: var(--excel-green); }
+
         /* Animations */
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
@@ -200,15 +233,15 @@
 
     <section class="hero">
         <div class="hero-card" id="hero-card">
-            <!-- AAPKI PHOTO KA DIRECT LINK -->
             <img src="https://drive.google.com/thumbnail?id=1wL8rCnm9nROTdZmdJ0iz6jvvy3C2nqB-&sz=w1000" alt="Sonal Kumar" class="profile-img">
             
             <h1>SONAL KUMAR</h1>
             
+            <!-- ROLES WITH ONCLICK FUNCTION -->
             <div class="role-container">
-                <div class="role-pill da">Data Analyst</div>
-                <div class="role-pill pbi">Power BI Specialist</div>
-                <div class="role-pill mis">MIS Executive</div>
+                <div class="role-pill da" onclick="openModal('da')">Data Analyst</div>
+                <div class="role-pill pbi" onclick="openModal('pbi')">Power BI Specialist</div>
+                <div class="role-pill mis" onclick="openModal('mis')">MIS Executive</div>
             </div>
             
             <div class="hero-btns">
@@ -224,6 +257,16 @@
             </div>
         </div>
     </section>
+
+    <!-- MODAL POPUP (HIDDEN BY DEFAULT) -->
+    <div class="modal-overlay" id="roleModal">
+        <div class="modal-box" id="modalBox">
+            <i class="fa-solid fa-xmark close-modal" onclick="closeModal()"></i>
+            <h3 id="modalTitle">Role Title</h3>
+            <p id="modalDesc">Role Description</p>
+            <ul id="modalList"></ul>
+        </div>
+    </div>
 
     <div class="section" style="padding-top: 0;">
         <div class="bento-grid reveal">
@@ -320,37 +363,97 @@
             <div class="bento-card edu-card tilt-card">
                 <div class="bento-content">
                     <h2 class="section-title" style="font-size: 1.8rem; margin-bottom: 15px;">Education</h2>
-                    
-                    <!-- DUCAT CERTIFICATE -->
                     <a href="https://drive.google.com/file/d/1eA2t0h-h-9ODgTTiHDFh8yOrlIp4Wvc2/preview" target="_blank" class="edu-item">
                         <h4>Data Analyst Certification <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.9rem; color: var(--sql-blue);"></i></h4>
                         <p>Ducat IT Training | Power BI, SQL</p>
                     </a>
-                    
-                    <!-- GRADUATION CERTIFICATE -->
                     <a href="https://drive.google.com/file/d/133x_TV4BQIpPVRrDlbMg8B-C_jn2pIAL/preview" target="_blank" class="edu-item">
                         <h4>B.Sc (Physics Honors) <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.9rem; color: var(--sql-blue);"></i></h4>
                         <p>Magadh University | 2023</p>
                     </a>
-                    
-                    <!-- 12TH CERTIFICATE -->
                     <a href="https://drive.google.com/file/d/1pcQJzfGG9234QxPfsvH0v7ZhRrcsrllB/preview" target="_blank" class="edu-item">
                         <h4>Class 12th (CBSE) <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.9rem; color: var(--sql-blue);"></i></h4>
                         <p>Manav Bharti National School | 2018</p>
                     </a>
-                    
-                    <!-- 10TH CERTIFICATE -->
                     <a href="https://drive.google.com/file/d/1TxMRiW4Lv6P-NI81z7lK1vFRyrXnKo0Z/preview" target="_blank" class="edu-item">
                         <h4>Class 10th (CBSE) <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.9rem; color: var(--sql-blue);"></i></h4>
                         <p>Param Gyan Niketan | 2016</p>
                     </a>
-                    
                 </div>
             </div>
         </div>
     </section>
 
     <script>
+        // --- MODAL DATA & LOGIC ---
+        const modalData = {
+            'da': {
+                title: 'Aspiring Data Analyst',
+                desc: 'Equipped with a strong foundation in data analytics, I focus on extracting actionable insights from raw datasets and bridging the gap between technical analysis and business strategy.',
+                points: [
+                    'Exploratory Data Analysis (EDA) & Trend Identification',
+                    'Data Cleaning & Preparation (100% accuracy)',
+                    'SQL Querying & Database Management',
+                    'Translating complex data into actionable reports'
+                ]
+            },
+            'pbi': {
+                title: 'Interactive Dashboard Developer',
+                desc: 'I transform raw operational data into visually compelling, interactive dashboards that drive decision-making and track live KPIs.',
+                points: [
+                    'Data Modeling & Creating Star Schemas',
+                    'DAX Mastery (Time Intelligence, MoM growth)',
+                    'Power Query Automation & Data Transformation',
+                    'Designing clean, executive-ready UI/UX reports'
+                ]
+            },
+            'mis': {
+                title: 'Operations & Reporting Specialist',
+                desc: 'With 1 year of hands-on experience, I manage daily operations data, automate reporting processes, and ensure 100% accuracy to support management decisions.',
+                points: [
+                    'Advanced Excel (XLOOKUP, Pivot Tables, Automation)',
+                    'Daily/Weekly KPI Tracking & Monitoring',
+                    'Data Reconciliation & Verification',
+                    'Creating daily/weekly MIS reports for management'
+                ]
+            }
+        };
+
+        function openModal(type) {
+            const data = modalData[type];
+            const modalBox = document.getElementById('modalBox');
+            const modalOverlay = document.getElementById('roleModal');
+            
+            // Set Content
+            document.getElementById('modalTitle').innerText = data.title;
+            document.getElementById('modalDesc').innerText = data.desc;
+            
+            const ul = document.getElementById('modalList');
+            ul.innerHTML = '';
+            data.points.forEach(point => {
+                const li = document.createElement('li');
+                li.innerText = point;
+                ul.appendChild(li);
+            });
+
+            // Set Glow Class
+            modalBox.className = 'modal-box'; // Reset
+            if(type === 'da') modalBox.classList.add('modal-da');
+            if(type === 'pbi') modalBox.classList.add('modal-pbi');
+            if(type === 'mis') modalBox.classList.add('modal-mis');
+
+            modalOverlay.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('roleModal').classList.remove('active');
+        }
+
+        // Close modal on clicking outside the box
+        document.getElementById('roleModal').addEventListener('click', function(e) {
+            if(e.target === this) closeModal();
+        });
+
         // 1. MAGNETIC BUTTONS
         const magneticBtns = document.querySelectorAll('.magnetic');
         magneticBtns.forEach(btn => {
@@ -379,24 +482,17 @@
         const tiltCards = document.querySelectorAll('.tilt-card');
         tiltCards.forEach(card => {
             let rect;
-            
-            card.addEventListener('mouseenter', () => {
-                rect = card.getBoundingClientRect();
-            });
-
+            card.addEventListener('mouseenter', () => { rect = card.getBoundingClientRect(); });
             card.addEventListener('mousemove', e => {
                 if (!rect) return;
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
-                
                 const rotateX = ((y - centerY) / centerY) * -8;
                 const rotateY = ((x - centerX) / centerX) * 8;
-                
                 card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
             });
-            
             card.addEventListener('mouseleave', () => {
                 card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)`;
                 rect = null;
@@ -410,7 +506,7 @@
         }, { threshold: 0.15 });
         reveals.forEach(reveal => revealObserver.observe(reveal));
 
-        // 5. LOOPING TYPEWRITER ANIMATION (REPEAT EVERY 30 SECONDS)
+        // 5. LOOPING TYPEWRITER ANIMATION
         const aboutSection = document.getElementById('about');
         const target = document.getElementById('typewriter-text');
         const text = "I am a detail-oriented Data Analyst with a strong foundation in Physics and 1 year of hands-on experience in transforming complex, multi-channel operational data into actionable business insights. I specialize in Power BI, Advanced Excel, and SQL, with a proven track record of automating reporting processes and saving over 35% of manual effort.";
@@ -423,7 +519,6 @@
             if (!isVisible) return;
             target.innerHTML = "";
             i = 0;
-            
             function type() {
                 if (!isVisible) return;
                 if (i < text.length) {
@@ -431,29 +526,8 @@
                     i++;
                     typingTimeout = setTimeout(type, 20); 
                 } else {
-                    typingTimeout = setTimeout(() => {
-                        startTyping();
-                    }, 30000); 
+                    typingTimeout = setTimeout(() => { startTyping(); }, 30000); 
                 }
             }
             type();
         }
-
-        const typeObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    if (!isVisible) {
-                        isVisible = true;
-                        startTyping(); 
-                    }
-                } else {
-                    isVisible = false; 
-                    clearTimeout(typingTimeout);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        typeObserver.observe(aboutSection);
-    </script>
-</body>
-</html>
