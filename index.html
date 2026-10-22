@@ -531,3 +531,18 @@
             }
             type();
         }
+
+        const typeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (!isVisible) { isVisible = true; startTyping(); }
+                } else {
+                    isVisible = false; 
+                    clearTimeout(typingTimeout);
+                }
+            });
+        }, { threshold: 0.5 });
+        typeObserver.observe(aboutSection);
+    </script>
+</body>
+</html>
