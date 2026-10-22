@@ -8,15 +8,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- ULTIMATE CINEMATIC DATA CSS --- */
+        /* --- ULTIMATE CINEMATIC DATA CSS (OPTIMIZED) --- */
         :root {
             --bg: #06070a;
-            --surface: rgba(15, 18, 25, 0.6);
+            --surface: rgba(20, 24, 35, 0.7); /* Made slightly more opaque for performance */
             --border: rgba(255, 255, 255, 0.08);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             
-            /* Data Tool Colors */
             --sql-blue: #60a5fa;
             --excel-green: #10b981;
             --bi-yellow: #f2c811;
@@ -28,19 +27,27 @@
             background-color: var(--bg); color: var(--text-main);
             font-family: 'Inter', sans-serif; overflow-x: hidden;
             background-image: radial-gradient(circle at 50% 0%, rgba(96, 165, 250, 0.08) 0%, transparent 50%);
-            perspective: 1000px; /* For 3D effects */
+            perspective: 1000px;
         }
 
-        /* 1. SMOOTH CUSTOM CURSOR */
+        /* 1. SUPER SMOOTH CUSTOM CURSOR (CSS Hardware Accelerated) */
         .cursor-dot, .cursor-outline {
             position: fixed; top: 0; left: 0; border-radius: 50%; z-index: 9999; pointer-events: none;
             will-change: transform;
+            /* Hardware acceleration */
+            backface-visibility: hidden; 
+            -webkit-font-smoothing: antialiased;
         }
-        .cursor-dot { width: 6px; height: 6px; background-color: var(--sql-blue); transform: translate(-50%, -50%); }
+        .cursor-dot { 
+            width: 6px; height: 6px; background-color: var(--sql-blue); 
+            /* Instant movement */
+            transform: translate3d(-50%, -50%, 0); 
+        }
         .cursor-outline {
-            width: 36px; height: 36px; border: 1px solid rgba(96, 165, 250, 0.4);
-            transition: width 0.2s, height 0.2s, background-color 0.2s, border-color 0.2s;
-            transform: translate(-50%, -50%);
+            width: 36px; height: 36px; border: 1px solid rgba(96, 165, 250, 0.5);
+            /* Native CSS transition for buttery smooth trail */
+            transition: transform 0.15s ease-out, width 0.2s, height 0.2s, background-color 0.2s, border-color 0.2s;
+            transform: translate3d(-50%, -50%, 0);
         }
         .cursor-outline.hovering { width: 60px; height: 60px; background-color: rgba(96, 165, 250, 0.1); border-color: var(--sql-blue); }
 
@@ -60,7 +67,6 @@
             padding: 120px 20px 60px 20px; position: relative;
         }
         
-        /* 3D GLASS CARD WITH SPOTLIGHT */
         .hero-card {
             background: var(--surface); border: 1px solid var(--border); border-radius: 24px;
             padding: 50px 40px; backdrop-filter: blur(20px); max-width: 850px; width: 100%;
@@ -69,15 +75,13 @@
             transition: transform 0.1s ease;
         }
         
-        /* Spotlight follows mouse */
         .hero-card::before {
             content: ""; position: absolute; inset: 0;
             background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(96, 165, 250, 0.1), transparent 40%);
             opacity: 0; transition: opacity 0.5s; pointer-events: none;
         }
         .hero-card:hover::before { opacity: 1; }
-
-        .hero-card > * { position: relative; z-index: 1; transform: translateZ(30px); } /* 3D pop */
+        .hero-card > * { position: relative; z-index: 1; transform: translateZ(30px); }
 
         .profile-img {
             width: 150px; height: 150px; border-radius: 50%; object-fit: cover;
@@ -91,30 +95,16 @@
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
-        /* --- ROLES MOTION & GLOW (Restored) --- */
+        /* ROLES MOTION & GLOW */
         .role-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 35px; flex-wrap: wrap; }
         .role-pill {
             font-size: 1rem; font-weight: 600; padding: 8px 18px; border-radius: 50px;
             border: 1px solid var(--border); background: rgba(255,255,255,0.03);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: none;
         }
-        
-        /* Individual Hover Colors for Data Tools */
-        .role-pill.da:hover { 
-            transform: translateY(-8px) scale(1.1); color: #fff; 
-            background: var(--sql-blue); border-color: var(--sql-blue); 
-            box-shadow: 0 10px 25px rgba(96, 165, 250, 0.4); 
-        }
-        .role-pill.pbi:hover { 
-            transform: translateY(-8px) scale(1.1); color: #000; 
-            background: var(--bi-yellow); border-color: var(--bi-yellow); 
-            box-shadow: 0 10px 25px rgba(242, 200, 17, 0.4); 
-        }
-        .role-pill.mis:hover { 
-            transform: translateY(-8px) scale(1.1); color: #fff; 
-            background: var(--excel-green); border-color: var(--excel-green); 
-            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4); 
-        }
+        .role-pill.da:hover { transform: translateY(-8px) scale(1.1); color: #fff; background: var(--sql-blue); border-color: var(--sql-blue); box-shadow: 0 10px 25px rgba(96, 165, 250, 0.4); }
+        .role-pill.pbi:hover { transform: translateY(-8px) scale(1.1); color: #000; background: var(--bi-yellow); border-color: var(--bi-yellow); box-shadow: 0 10px 25px rgba(242, 200, 17, 0.4); }
+        .role-pill.mis:hover { transform: translateY(-8px) scale(1.1); color: #fff; background: var(--excel-green); border-color: var(--excel-green); box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4); }
 
         /* MAGNETIC BUTTONS */
         .hero-btns { display: flex; gap: 15px; justify-content: center; margin-bottom: 35px; flex-wrap: wrap; }
@@ -139,15 +129,15 @@
         
         .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 25px; }
         
-        /* 3D TILT CARDS */
+        /* 3D TILT CARDS (Optimized for Performance) */
         .bento-card {
             background: var(--surface); border: 1px solid var(--border); border-radius: 20px;
-            padding: 35px; position: relative; overflow: hidden; backdrop-filter: blur(12px);
+            padding: 35px; position: relative; overflow: hidden;
             transition: transform 0.1s ease, border-color 0.3s, box-shadow 0.3s;
             transform-style: preserve-3d;
         }
         .bento-card:hover { border-color: rgba(96, 165, 250, 0.4); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
-        .bento-content { transform: translateZ(20px); } /* Floats above card */
+        .bento-content { transform: translateZ(20px); }
 
         /* Metrics */
         .m-card { grid-column: span 3; text-align: center; padding: 30px; }
@@ -192,7 +182,6 @@
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
         
-        /* Scroll Reveal 3D */
         .reveal { opacity: 0; transform: translateY(60px) scale(0.95) rotateX(10deg); transition: all 1s cubic-bezier(0.5, 0, 0, 1); }
         .reveal.active { opacity: 1; transform: translateY(0) scale(1) rotateX(0deg); }
 
@@ -229,14 +218,11 @@
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
     <section class="hero">
         <div class="hero-card" id="hero-card">
-            <!-- APNI PHOTO KA LINK YAHAN DAALEIN -->
             <img src="https://via.placeholder.com/150" alt="Sonal Kumar" class="profile-img">
             <h1>SONAL KUMAR</h1>
             
-            <!-- ROLES WITH INDIVIDUAL GLOW MOTION -->
             <div class="role-container">
                 <div class="role-pill da">Data Analyst</div>
                 <div class="role-pill pbi">Power BI Specialist</div>
@@ -257,37 +243,24 @@
         </div>
     </section>
 
-    <!-- METRICS -->
     <div class="section" style="padding-top: 0;">
         <div class="bento-grid reveal">
-            <div class="bento-card m-card tilt-card">
-                <div class="bento-content"><h3>50K+</h3><p>Records Analyzed</p></div>
-            </div>
-            <div class="bento-card m-card tilt-card">
-                <div class="bento-content"><h3>35%</h3><p>Time Saved</p></div>
-            </div>
-            <div class="bento-card m-card tilt-card">
-                <div class="bento-content"><h3>12%</h3><p>Return Reduced</p></div>
-            </div>
-            <div class="bento-card m-card tilt-card">
-                <div class="bento-content"><h3>100%</h3><p>Data Accuracy</p></div>
-            </div>
+            <div class="bento-card m-card tilt-card"><div class="bento-content"><h3>50K+</h3><p>Records Analyzed</p></div></div>
+            <div class="bento-card m-card tilt-card"><div class="bento-content"><h3>35%</h3><p>Time Saved</p></div></div>
+            <div class="bento-card m-card tilt-card"><div class="bento-content"><h3>12%</h3><p>Return Reduced</p></div></div>
+            <div class="bento-card m-card tilt-card"><div class="bento-content"><h3>100%</h3><p>Data Accuracy</p></div></div>
         </div>
     </div>
 
-    <!-- ABOUT -->
     <section id="about" class="section reveal">
         <h2 class="section-title">About Me</h2>
         <div class="bento-grid">
             <div class="bento-card about-card">
-                <p class="about-text">
-                    <span id="typewriter-text"></span><span class="type-cursor">|</span>
-                </p>
+                <p class="about-text"><span id="typewriter-text"></span><span class="type-cursor">|</span></p>
             </div>
         </div>
     </section>
 
-    <!-- EXPERIENCE -->
     <section id="experience" class="section reveal">
         <h2 class="section-title">Experience</h2>
         <div class="bento-grid">
@@ -316,7 +289,6 @@
         </div>
     </section>
 
-    <!-- PROJECTS -->
     <section id="projects" class="section reveal">
         <h2 class="section-title">Key Projects</h2>
         <div class="bento-grid">
@@ -325,32 +297,25 @@
                     <h3>Sales Performance Dashboard</h3>
                     <p>Cleaned and transformed 50,000+ raw sales records using Power Query. Developed custom DAX measures for key metrics. Designed interactive KPI dashboards.</p>
                 </div>
-                <div class="tags">
-                    <span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">Power Query</span>
-                </div>
+                <div class="tags"><span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">Power Query</span></div>
             </div>
             <div class="bento-card proj-card tilt-card">
                 <div class="bento-content">
                     <h3>Customer Complaint Analytics</h3>
                     <p>Built an interactive dashboard to monitor complaint volumes and resolution trends. Created DAX-based KPI measures to track service-level performance.</p>
                 </div>
-                <div class="tags">
-                    <span class="tag">Power BI</span><span class="tag">Data Viz</span>
-                </div>
+                <div class="tags"><span class="tag">Power BI</span><span class="tag">Data Viz</span></div>
             </div>
             <div class="bento-card proj-card tilt-card">
                 <div class="bento-content">
                     <h3>Amazon Returns Tracker</h3>
                     <p>Analyzed returns and SKU performance across 10,000+ transactions. Developed automated Pivot Table-based MIS reports using XLOOKUP.</p>
                 </div>
-                <div class="tags">
-                    <span class="tag">Advanced Excel</span><span class="tag">MIS</span>
-                </div>
+                <div class="tags"><span class="tag">Advanced Excel</span><span class="tag">MIS</span></div>
             </div>
         </div>
     </section>
 
-    <!-- SKILLS & EDUCATION -->
     <section id="education" class="section reveal">
         <div class="bento-grid">
             <div class="bento-card skills-card tilt-card">
@@ -394,29 +359,19 @@
         </div>
     </section>
 
-    <!-- JAVASCRIPT LOGIC -->
     <script>
-        // 1. SMOOTH CUSTOM CURSOR
+        // 1. OPTIMIZED SMOOTH CURSOR (Using CSS transition for outline)
         const cursorDot = document.querySelector('.cursor-dot');
         const cursorOutline = document.querySelector('.cursor-outline');
-        const links = document.querySelectorAll('a, .bento-card, .role-pill');
-
-        let mouseX = 0, mouseY = 0;
-        let outlineX = 0, outlineY = 0;
+        const links = document.querySelectorAll('a, .bento-card, .role-pill, .skill-item');
 
         window.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+            // Use translate3d for hardware acceleration
+            const x = e.clientX;
+            const y = e.clientY;
+            cursorDot.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
+            cursorOutline.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
         });
-
-        function animateCursor() {
-            outlineX += (mouseX - outlineX) * 0.15;
-            outlineY += (mouseY - outlineY) * 0.15;
-            cursorOutline.style.transform = `translate(${outlineX}px, ${outlineY}px) translate(-50%, -50%)`;
-            requestAnimationFrame(animateCursor);
-        }
-        animateCursor();
 
         links.forEach(link => {
             link.addEventListener('mouseenter', () => cursorOutline.classList.add('hovering'));
@@ -437,7 +392,7 @@
             });
         });
 
-        // 3. HERO SPOTLIGHT EFFECT (Follows Mouse)
+        // 3. HERO SPOTLIGHT
         const heroCard = document.getElementById('hero-card');
         heroCard.addEventListener('mousemove', e => {
             const rect = heroCard.getBoundingClientRect();
@@ -447,17 +402,23 @@
             heroCard.style.setProperty('--mouse-y', `${y}px`);
         });
 
-        // 4. 3D TILT EFFECT FOR BENTO CARDS
+        // 4. 3D TILT EFFECT (Throttled via RequestAnimationFrame for Zero Lag)
         const tiltCards = document.querySelectorAll('.tilt-card');
         tiltCards.forEach(card => {
+            let rect;
+            
+            card.addEventListener('mouseenter', () => {
+                rect = card.getBoundingClientRect(); // Cache rect on enter
+            });
+
             card.addEventListener('mousemove', e => {
-                const rect = card.getBoundingClientRect();
+                if (!rect) return;
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
                 
-                const rotateX = ((y - centerY) / centerY) * -8; // Max 8 degrees
+                const rotateX = ((y - centerY) / centerY) * -8;
                 const rotateY = ((x - centerX) / centerX) * 8;
                 
                 card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
@@ -465,17 +426,18 @@
             
             card.addEventListener('mouseleave', () => {
                 card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)`;
+                rect = null;
             });
         });
 
-        // 5. SCROLL REVEAL 3D
+        // 5. SCROLL REVEAL
         const reveals = document.querySelectorAll(".reveal");
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add("active"); });
         }, { threshold: 0.15 });
         reveals.forEach(reveal => revealObserver.observe(reveal));
 
-        // 6. CLEAN TYPEWRITER (About Me)
+        // 6. TYPEWRITER
         const target = document.getElementById('typewriter-text');
         const text = "I am a detail-oriented Data Analyst with a strong foundation in Physics and 1 year of hands-on experience in transforming complex, multi-channel operational data into actionable business insights. I specialize in Power BI, Advanced Excel, and SQL, with a proven track record of automating reporting processes and saving over 35% of manual effort.";
         let i = 0;
