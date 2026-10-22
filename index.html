@@ -186,7 +186,7 @@
         /* Skills & Edu */
         .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
         
-        /* NEW SKILL TAG WITH LOGO & ANIMATION */
+        /* SKILL TAG WITH LOGO & ANIMATION */
         .skill-tag {
             display: inline-flex; align-items: center; gap: 10px;
             background: var(--card-bg); border: 1px solid var(--border);
@@ -206,7 +206,26 @@
         .skill-tag img { width: 20px; height: 20px; object-fit: contain; }
         .skill-tag i { font-size: 1.2rem; }
 
-        .edu-item { margin-bottom: 20px; background: var(--card-bg); border-left: 3px solid var(--primary); padding: 15px 20px; border-radius: 0 10px 10px 0; }
+        /* EDUCATION ITEM WITH ANIMATION */
+        .edu-item { 
+            margin-bottom: 20px; 
+            background: var(--card-bg); 
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--primary); 
+            padding: 15px 20px; 
+            border-radius: 0 10px 10px 0; 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: default;
+        }
+        
+        .edu-item:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: var(--primary);
+            border-left-width: 5px;
+            box-shadow: 0 10px 20px rgba(96, 165, 250, 0.15), 0 0 15px rgba(96, 165, 250, 0.3);
+            background: rgba(96, 165, 250, 0.05);
+        }
+
         .edu-item h4 { color: #fff; font-size: 1.1rem; margin-bottom: 5px; }
         .edu-item p { color: var(--text-muted); font-size: 0.9rem; }
 
@@ -342,7 +361,7 @@
         </div>
     </section>
 
-    <!-- SKILLS & EDUCATION (UPDATED WITH LOGOS) -->
+    <!-- SKILLS & EDUCATION -->
     <section id="education" class="section">
         <div class="two-col">
             <div>
@@ -351,7 +370,6 @@
                 <div style="margin-bottom: 30px;">
                     <h4 style="margin-bottom: 15px; color: var(--text-muted);">Technical Skills</h4>
                     
-                    <!-- LOGOS ADDED HERE -->
                     <span class="skill-tag">
                         <i class="fa-solid fa-file-excel" style="color: #21A366;"></i> Advanced Excel
                     </span>
