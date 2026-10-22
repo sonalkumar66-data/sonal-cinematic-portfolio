@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- ULTIMATE CINEMATIC DATA CSS (OPTIMIZED) --- */
+        /* --- ULTIMATE CINEMATIC DATA CSS (NO CUSTOM CURSOR) --- */
         :root {
             --bg: #06070a;
-            --surface: rgba(20, 24, 35, 0.7); /* Made slightly more opaque for performance */
+            --surface: rgba(20, 24, 35, 0.7);
             --border: rgba(255, 255, 255, 0.08);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
@@ -21,7 +21,8 @@
             --bi-yellow: #f2c811;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+        /* Default cursor restored */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             background-color: var(--bg); color: var(--text-main);
@@ -30,27 +31,6 @@
             perspective: 1000px;
         }
 
-        /* 1. SUPER SMOOTH CUSTOM CURSOR (CSS Hardware Accelerated) */
-        .cursor-dot, .cursor-outline {
-            position: fixed; top: 0; left: 0; border-radius: 50%; z-index: 9999; pointer-events: none;
-            will-change: transform;
-            /* Hardware acceleration */
-            backface-visibility: hidden; 
-            -webkit-font-smoothing: antialiased;
-        }
-        .cursor-dot { 
-            width: 6px; height: 6px; background-color: var(--sql-blue); 
-            /* Instant movement */
-            transform: translate3d(-50%, -50%, 0); 
-        }
-        .cursor-outline {
-            width: 36px; height: 36px; border: 1px solid rgba(96, 165, 250, 0.5);
-            /* Native CSS transition for buttery smooth trail */
-            transition: transform 0.15s ease-out, width 0.2s, height 0.2s, background-color 0.2s, border-color 0.2s;
-            transform: translate3d(-50%, -50%, 0);
-        }
-        .cursor-outline.hovering { width: 60px; height: 60px; background-color: rgba(96, 165, 250, 0.1); border-color: var(--sql-blue); }
-
         /* NAVBAR */
         nav {
             display: flex; justify-content: space-between; align-items: center;
@@ -58,7 +38,7 @@
             backdrop-filter: blur(16px); background: rgba(6, 7, 10, 0.6); border-bottom: 1px solid var(--border);
         }
         .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; color: #fff; letter-spacing: 1px; }
-        .nav-links a { color: var(--text-muted); text-decoration: none; margin-left: 35px; font-size: 0.9rem; font-weight: 600; transition: 0.3s; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; margin-left: 35px; font-size: 0.9rem; font-weight: 600; transition: 0.3s; cursor: pointer; }
         .nav-links a:hover { color: var(--sql-blue); text-shadow: 0 0 10px rgba(96, 165, 250, 0.5); }
 
         /* HERO SECTION */
@@ -100,7 +80,7 @@
         .role-pill {
             font-size: 1rem; font-weight: 600; padding: 8px 18px; border-radius: 50px;
             border: 1px solid var(--border); background: rgba(255,255,255,0.03);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer;
         }
         .role-pill.da:hover { transform: translateY(-8px) scale(1.1); color: #fff; background: var(--sql-blue); border-color: var(--sql-blue); box-shadow: 0 10px 25px rgba(96, 165, 250, 0.4); }
         .role-pill.pbi:hover { transform: translateY(-8px) scale(1.1); color: #000; background: var(--bi-yellow); border-color: var(--bi-yellow); box-shadow: 0 10px 25px rgba(242, 200, 17, 0.4); }
@@ -111,7 +91,7 @@
         .btn {
             padding: 14px 32px; font-size: 0.95rem; font-weight: 700; border-radius: 50px;
             text-decoration: none; display: inline-flex; align-items: center; gap: 10px;
-            transition: transform 0.2s, box-shadow 0.3s, background 0.3s;
+            transition: transform 0.2s, box-shadow 0.3s, background 0.3s; cursor: pointer;
         }
         .btn-primary { background: #fff; color: #000; }
         .btn-primary:hover { background: var(--sql-blue); color: #fff; box-shadow: 0 10px 25px rgba(96, 165, 250, 0.5); }
@@ -119,7 +99,7 @@
         .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
 
         .contact-info { display: flex; gap: 25px; flex-wrap: wrap; justify-content: center; font-size: 0.95rem; }
-        .contact-info a { color: var(--text-muted); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: 0.3s; }
+        .contact-info a { color: var(--text-muted); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: 0.3s; cursor: pointer; }
         .contact-info a:hover { color: #fff; transform: translateY(-3px); }
         .contact-info i { color: var(--sql-blue); }
 
@@ -129,7 +109,7 @@
         
         .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 25px; }
         
-        /* 3D TILT CARDS (Optimized for Performance) */
+        /* 3D TILT CARDS */
         .bento-card {
             background: var(--surface); border: 1px solid var(--border); border-radius: 20px;
             padding: 35px; position: relative; overflow: hidden;
@@ -168,12 +148,12 @@
         .skill-tags { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 25px; }
         .skill-item { 
             display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.03); 
-            padding: 14px 22px; border-radius: 12px; border: 1px solid var(--border); font-size: 0.95rem; font-weight: 600; transition: 0.4s;
+            padding: 14px 22px; border-radius: 12px; border: 1px solid var(--border); font-size: 0.95rem; font-weight: 600; transition: 0.4s; cursor: pointer;
         }
         .skill-item:hover { background: rgba(96, 165, 250, 0.1); border-color: var(--sql-blue); transform: translateY(-5px) scale(1.05); box-shadow: 0 10px 20px rgba(96,165,250,0.2); }
         .skill-item img { width: 22px; height: 22px; }
         
-        .edu-item { display: block; text-decoration: none; padding: 20px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 15px; transition: 0.4s; background: rgba(255,255,255,0.02); }
+        .edu-item { display: block; text-decoration: none; padding: 20px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 15px; transition: 0.4s; background: rgba(255,255,255,0.02); cursor: pointer; }
         .edu-item:hover { background: rgba(96, 165, 250, 0.08); border-color: var(--sql-blue); transform: translateX(10px); }
         .edu-item h4 { color: #fff; font-size: 1.1rem; margin-bottom: 6px; display: flex; justify-content: space-between; }
         .edu-item p { color: var(--text-muted); font-size: 0.95rem; }
@@ -192,8 +172,6 @@
             h1 { font-size: 3rem; }
         }
         @media (max-width: 768px) {
-            * { cursor: auto; }
-            .cursor-dot, .cursor-outline { display: none; }
             .m-card { grid-column: span 12; }
             h1 { font-size: 2.5rem; }
             .nav-links { display: none; }
@@ -205,9 +183,6 @@
     </style>
 </head>
 <body>
-
-    <div class="cursor-dot"></div>
-    <div class="cursor-outline"></div>
 
     <nav>
         <div class="logo">SONAL.K</div>
@@ -360,25 +335,7 @@
     </section>
 
     <script>
-        // 1. OPTIMIZED SMOOTH CURSOR (Using CSS transition for outline)
-        const cursorDot = document.querySelector('.cursor-dot');
-        const cursorOutline = document.querySelector('.cursor-outline');
-        const links = document.querySelectorAll('a, .bento-card, .role-pill, .skill-item');
-
-        window.addEventListener('mousemove', (e) => {
-            // Use translate3d for hardware acceleration
-            const x = e.clientX;
-            const y = e.clientY;
-            cursorDot.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
-            cursorOutline.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
-        });
-
-        links.forEach(link => {
-            link.addEventListener('mouseenter', () => cursorOutline.classList.add('hovering'));
-            link.addEventListener('mouseleave', () => cursorOutline.classList.remove('hovering'));
-        });
-
-        // 2. MAGNETIC BUTTONS
+        // 1. MAGNETIC BUTTONS (Smooth & Lag-Free)
         const magneticBtns = document.querySelectorAll('.magnetic');
         magneticBtns.forEach(btn => {
             btn.addEventListener('mousemove', (e) => {
@@ -392,7 +349,7 @@
             });
         });
 
-        // 3. HERO SPOTLIGHT
+        // 2. HERO SPOTLIGHT
         const heroCard = document.getElementById('hero-card');
         heroCard.addEventListener('mousemove', e => {
             const rect = heroCard.getBoundingClientRect();
@@ -402,13 +359,13 @@
             heroCard.style.setProperty('--mouse-y', `${y}px`);
         });
 
-        // 4. 3D TILT EFFECT (Throttled via RequestAnimationFrame for Zero Lag)
+        // 3. 3D TILT EFFECT
         const tiltCards = document.querySelectorAll('.tilt-card');
         tiltCards.forEach(card => {
             let rect;
             
             card.addEventListener('mouseenter', () => {
-                rect = card.getBoundingClientRect(); // Cache rect on enter
+                rect = card.getBoundingClientRect();
             });
 
             card.addEventListener('mousemove', e => {
@@ -430,14 +387,14 @@
             });
         });
 
-        // 5. SCROLL REVEAL
+        // 4. SCROLL REVEAL
         const reveals = document.querySelectorAll(".reveal");
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add("active"); });
         }, { threshold: 0.15 });
         reveals.forEach(reveal => revealObserver.observe(reveal));
 
-        // 6. TYPEWRITER
+        // 5. TYPEWRITER ANIMATION (About Me)
         const target = document.getElementById('typewriter-text');
         const text = "I am a detail-oriented Data Analyst with a strong foundation in Physics and 1 year of hands-on experience in transforming complex, multi-channel operational data into actionable business insights. I specialize in Power BI, Advanced Excel, and SQL, with a proven track record of automating reporting processes and saving over 35% of manual effort.";
         let i = 0;
