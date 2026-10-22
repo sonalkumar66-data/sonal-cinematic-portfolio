@@ -5,17 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sonal Kumar | Data Analyst Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    
-    <!-- FontAwesome Icons CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* CINEMATIC 3D CSS */
+        /* ADVANCED CINEMATIC CSS */
         :root {
             --primary: #60a5fa;
-            --bg: #050505;
-            --card-bg: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.1);
+            --secondary: #8b5cf6;
+            --bg: #030303;
+            --card-bg: rgba(255, 255, 255, 0.02);
+            --border: rgba(255, 255, 255, 0.08);
             --text-muted: #94a3b8;
             --whatsapp: #25D366;
         }
@@ -26,27 +25,55 @@
             background-color: var(--bg); color: #fff;
             font-family: 'Inter', sans-serif; overflow-x: hidden; scroll-behavior: smooth;
         }
-        
-        /* Background Glow Effect */
+
+        /* 1. CUSTOM GLOWING CURSOR */
+        .cursor-glow {
+            position: fixed; top: 0; left: 0; width: 20px; height: 20px;
+            background: var(--primary); border-radius: 50%; pointer-events: none;
+            transform: translate(-50%, -50%); z-index: 9999;
+            box-shadow: 0 0 20px 5px rgba(96, 165, 250, 0.5);
+            transition: width 0.2s, height 0.2s;
+            mix-blend-mode: screen;
+        }
+        @media (max-width: 768px) { .cursor-glow { display: none; } } /* Mobile me hide */
+
+        /* 2. ANIMATED BACKGROUND GRID */
+        .bg-grid {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px; z-index: -2; pointer-events: none;
+        }
+
         .bg-glow {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: radial-gradient(circle at 15% 20%, rgba(59, 130, 246, 0.15) 0%, transparent 40%),
-                        radial-gradient(circle at 85% 80%, rgba(139, 92, 246, 0.15) 0%, transparent 40%);
+            background: radial-gradient(circle at 15% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 40%),
+                        radial-gradient(circle at 85% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 40%);
             z-index: -1; pointer-events: none;
+        }
+
+        /* 3. SCROLL REVEAL ANIMATION CLASSES */
+        .reveal {
+            opacity: 0; transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1; transform: translateY(0);
         }
 
         /* Navbar */
         nav {
             display: flex; justify-content: space-between; align-items: center;
             padding: 20px 5%; position: fixed; width: 100%; z-index: 100;
-            backdrop-filter: blur(12px); background: rgba(5,5,5,0.7); border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(15px); background: rgba(3,3,3,0.6); border-bottom: 1px solid var(--border);
         }
-        .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem; letter-spacing: 1px; }
+        .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.5rem; letter-spacing: 1px; background: linear-gradient(90deg, #fff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}
         .nav-links a {
             color: #fff; text-decoration: none; margin-left: 30px; font-size: 0.9rem; 
             font-weight: 600; transition: 0.3s;
         }
-        .nav-links a:hover { color: var(--primary); }
+        .nav-links a:hover { color: var(--primary); text-shadow: 0 0 10px rgba(96, 165, 250, 0.5); }
 
         /* Hero Section */
         .hero {
@@ -61,21 +88,21 @@
             transform: rotateX(5deg) rotateY(-5deg); transition: 0.5s ease;
             animation: float 6s ease-in-out infinite; max-width: 800px;
         }
-        .glass-card:hover { transform: rotateX(0) rotateY(0) scale(1.02); }
+        .glass-card:hover { transform: rotateX(0) rotateY(0) scale(1.02); box-shadow: 0 30px 60px rgba(96, 165, 250, 0.15); }
 
         .profile-img {
-            width: 150px; height: 150px; border-radius: 50%; object-fit: cover;
-            border: 3px solid var(--primary); box-shadow: 0 0 30px rgba(96, 165, 250, 0.4);
-            margin-bottom: 20px;
+            width: 160px; height: 160px; border-radius: 50%; object-fit: cover;
+            border: 3px solid var(--primary); box-shadow: 0 0 40px rgba(96, 165, 250, 0.4);
+            margin-bottom: 20px; transition: 0.5s;
         }
+        .profile-img:hover { transform: scale(1.05) rotate(5deg); box-shadow: 0 0 60px rgba(96, 165, 250, 0.8); }
 
         h1 {
-            font-family: 'Syne', sans-serif; font-size: 3.5rem; margin: 10px 0;
-            background: linear-gradient(90deg, #fff, var(--primary)); -webkit-background-clip: text;
+            font-family: 'Syne', sans-serif; font-size: 3.8rem; margin: 10px 0;
+            background: linear-gradient(90deg, #fff, var(--primary), var(--secondary)); -webkit-background-clip: text;
             -webkit-text-fill-color: transparent; line-height: 1.2;
         }
         
-        /* ROLE STYLING */
         .role { 
             color: var(--text-muted); font-size: 1.1rem; letter-spacing: 2px; 
             text-transform: uppercase; margin-bottom: 25px; display: inline-block;
@@ -86,25 +113,15 @@
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: default;
         }
-        
         .role span:hover {
-            color: var(--primary);
-            transform: translateY(-4px) scale(1.1);
-            text-shadow: 0 0 15px rgba(96, 165, 250, 0.7), 0 0 30px rgba(96, 165, 250, 0.4);
+            color: var(--primary); transform: translateY(-4px) scale(1.1);
+            text-shadow: 0 0 15px rgba(96, 165, 250, 0.7);
         }
         
-        /* Hero Contact Links */
-        .hero-contact { 
-            display: flex; justify-content: center; align-items: center; gap: 20px; margin-bottom: 30px; 
-            flex-wrap: wrap; font-size: 0.95rem; 
-        }
-        .hero-contact a {
-            color: var(--text-muted); text-decoration: none; transition: 0.3s;
-            display: inline-flex; align-items: center; gap: 6px;
-        }
+        .hero-contact { display: flex; justify-content: center; align-items: center; gap: 20px; margin-bottom: 30px; flex-wrap: wrap; font-size: 0.95rem; }
+        .hero-contact a { color: var(--text-muted); text-decoration: none; transition: 0.3s; display: inline-flex; align-items: center; gap: 6px; }
         .hero-contact a:hover { color: var(--primary); transform: translateY(-2px); }
         
-        /* WhatsApp Icon Styling */
         .whatsapp-btn { color: var(--text-muted) !important; font-weight: 600; }
         .whatsapp-btn svg { width: 18px; height: 18px; fill: currentColor; transition: 0.3s; }
         .whatsapp-btn:hover { color: var(--whatsapp) !important; text-shadow: 0 0 10px rgba(37, 211, 102, 0.6); }
@@ -117,7 +134,7 @@
         }
         .btn:hover { background: var(--primary); color: #fff; box-shadow: 0 0 20px rgba(96, 165, 250, 0.6); transform: translateY(-3px); }
         .btn-outline { background: transparent; color: #fff; border: 1px solid var(--border); }
-        .btn-outline:hover { background: #fff; color: #000; }
+        .btn-outline:hover { background: #fff; color: #000; box-shadow: 0 0 20px rgba(255, 255, 255, 0.4); }
 
         @keyframes float {
             0% { transform: translateY(0px) rotateX(5deg) rotateY(-5deg); }
@@ -133,51 +150,66 @@
         }
         .section-title::after {
             content: ''; position: absolute; left: 0; bottom: -10px; width: 50%; height: 3px;
-            background: var(--primary); border-radius: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary)); border-radius: 5px;
+            box-shadow: 0 0 15px rgba(96, 165, 250, 0.5);
         }
 
         /* Metrics */
-        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; margin-top: 30px; }
-        .metric-box { background: var(--card-bg); border: 1px solid var(--border); padding: 20px; border-radius: 12px; text-align: center; }
-        .metric-box h3 { color: var(--primary); font-size: 2rem; margin-bottom: 5px; font-family: 'Syne', sans-serif; }
+        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; }
+        .metric-box { 
+            background: var(--card-bg); border: 1px solid var(--border); padding: 25px 20px; border-radius: 12px; text-align: center;
+            transition: 0.4s;
+        }
+        .metric-box:hover { transform: translateY(-5px); border-color: var(--primary); box-shadow: 0 10px 20px rgba(96, 165, 250, 0.1); }
+        .metric-box h3 { color: var(--primary); font-size: 2.2rem; margin-bottom: 5px; font-family: 'Syne', sans-serif; text-shadow: 0 0 10px rgba(96, 165, 250, 0.3); }
         .metric-box p { color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
 
         /* About */
         .about-text { font-size: 1.1rem; color: var(--text-muted); line-height: 1.8; max-width: 900px; min-height: 150px; }
         
-        /* ANIMATED CURSOR */
         .cursor {
             display: inline-block; width: 2px; height: 1.1rem; background-color: var(--primary);
-            vertical-align: middle; margin-left: 3px;
-            animation: blink 0.8s infinite;
+            vertical-align: middle; margin-left: 3px; animation: blink 0.8s infinite;
         }
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
         /* Experience Timeline */
         .timeline { border-left: 2px solid var(--border); padding-left: 30px; margin-left: 10px; }
-        .timeline-item { position: relative; margin-bottom: 40px; }
+        .timeline-item { 
+            position: relative; margin-bottom: 40px; padding: 20px; border-radius: 12px; 
+            transition: 0.4s; border: 1px solid transparent;
+        }
+        .timeline-item:hover { background: var(--card-bg); border-color: var(--border); transform: translateX(10px); }
         .timeline-item::before {
-            content: ''; position: absolute; left: -37px; top: 0; width: 12px; height: 12px;
-            background: var(--primary); border-radius: 50%; box-shadow: 0 0 10px var(--primary);
+            content: ''; position: absolute; left: -37px; top: 30px; width: 12px; height: 12px;
+            background: var(--primary); border-radius: 50%; box-shadow: 0 0 15px var(--primary);
         }
         .timeline-item h3 { font-family: 'Syne', sans-serif; font-size: 1.3rem; margin-bottom: 5px; }
         .timeline-item h4 { color: var(--primary); font-size: 1rem; margin-bottom: 15px; font-weight: 400; }
         .timeline-item ul { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; padding-left: 20px; }
         .timeline-item ul li { margin-bottom: 8px; }
 
-        /* Projects Grid */
+        /* 4. GLOWING 3D PROJECT CARDS */
         .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
         .project-card {
             background: var(--card-bg); border: 1px solid var(--border); padding: 30px;
-            border-radius: 16px; transition: 0.3s; position: relative; overflow: hidden;
+            border-radius: 16px; transition: all 0.4s ease; position: relative; overflow: hidden;
         }
-        .project-card:hover { transform: translateY(-8px); border-color: var(--primary); box-shadow: 0 15px 30px rgba(0,0,0,0.4); }
-        .project-card h3 { font-family: 'Syne', sans-serif; font-size: 1.3rem; color: #fff; margin-bottom: 15px; }
-        .project-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; }
-        .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+        .project-card::before {
+            content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: conic-gradient(transparent, var(--primary), transparent 30%);
+            animation: rotate 4s linear infinite; z-index: -1; opacity: 0; transition: 0.5s;
+        }
+        .project-card:hover::before { opacity: 1; }
+        .project-card::after {
+            content: ""; position: absolute; inset: 2px; background: #0a0a0a; border-radius: 14px; z-index: -1;
+        }
+        @keyframes rotate { 100% { transform: rotate(360deg); } }
+
+        .project-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.6); }
+        .project-card h3 { font-family: 'Syne', sans-serif; font-size: 1.3rem; color: #fff; margin-bottom: 15px; position: relative; z-index: 1; }
+        .project-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; position: relative; z-index: 1; }
+        .tags { display: flex; flex-wrap: wrap; gap: 8px; position: relative; z-index: 1; }
         .tag {
             font-size: 0.75rem; background: rgba(96, 165, 250, 0.1); color: var(--primary);
             padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(96, 165, 250, 0.2); font-weight: 600;
@@ -186,80 +218,45 @@
         /* Skills & Edu */
         .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
         
-        /* SKILL TAG WITH LOGO & ANIMATION */
         .skill-tag {
             display: inline-flex; align-items: center; gap: 10px;
             background: var(--card-bg); border: 1px solid var(--border);
             padding: 12px 22px; border-radius: 8px; margin: 0 12px 12px 0; 
             color: #fff; font-size: 0.95rem; font-weight: 500;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer;
         }
-        
         .skill-tag:hover {
-            transform: translateY(-5px) scale(1.05);
-            border-color: var(--primary);
+            transform: translateY(-5px) scale(1.05); border-color: var(--primary);
             box-shadow: 0 10px 20px rgba(96, 165, 250, 0.2), 0 0 15px rgba(96, 165, 250, 0.4);
             background: rgba(96, 165, 250, 0.1);
         }
-
         .skill-tag img { width: 20px; height: 20px; object-fit: contain; }
         .skill-tag i { font-size: 1.2rem; }
 
-        /* EDUCATION ITEM WITH ANIMATION & CLICKABLE */
         .edu-item { 
-            display: block;
-            text-decoration: none; /* Removes default link underline */
-            margin-bottom: 20px; 
-            background: var(--card-bg); 
-            border: 1px solid var(--border);
-            border-left: 3px solid var(--primary); 
-            padding: 15px 20px; 
-            border-radius: 0 10px 10px 0; 
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer; /* Changes cursor to a pointing hand */
+            display: block; text-decoration: none; margin-bottom: 20px; 
+            background: var(--card-bg); border: 1px solid var(--border);
+            border-left: 3px solid var(--primary); padding: 15px 20px; 
+            border-radius: 0 10px 10px 0; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
         }
-        
         .edu-item:hover {
-            transform: translateY(-5px) scale(1.02);
-            border-color: var(--primary);
-            border-left-width: 5px;
-            box-shadow: 0 10px 20px rgba(96, 165, 250, 0.15), 0 0 15px rgba(96, 165, 250, 0.3);
+            transform: translateY(-5px) scale(1.02); border-color: var(--primary);
+            border-left-width: 5px; box-shadow: 0 10px 20px rgba(96, 165, 250, 0.15), 0 0 15px rgba(96, 165, 250, 0.3);
             background: rgba(96, 165, 250, 0.05);
         }
-
-        .edu-item h4 { 
-            color: #fff; 
-            font-size: 1.1rem; 
-            margin-bottom: 5px; 
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        /* Small Icon to show it's a link */
+        .edu-item h4 { color: #fff; font-size: 1.1rem; margin-bottom: 5px; display: flex; justify-content: space-between; align-items: center;}
         .edu-item h4::after {
-            content: '\f08e'; /* FontAwesome external link icon */
-            font-family: "Font Awesome 6 Free";
-            font-weight: 900;
-            font-size: 0.8rem;
-            color: var(--primary);
-            opacity: 0.5;
-            transition: 0.3s;
+            content: '\f08e'; font-family: "Font Awesome 6 Free"; font-weight: 900; font-size: 0.8rem;
+            color: var(--primary); opacity: 0.5; transition: 0.3s;
         }
-
-        .edu-item:hover h4::after {
-            opacity: 1;
-            transform: translateX(5px);
-        }
-
+        .edu-item:hover h4::after { opacity: 1; transform: translateX(5px); }
         .edu-item p { color: var(--text-muted); font-size: 0.9rem; }
 
         /* Footer */
         footer { text-align: center; padding: 40px; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.9rem; }
         footer a { color: var(--primary); text-decoration: none; }
 
-        /* Mobile */
         @media (max-width: 768px) {
             h1 { font-size: 2.5rem; }
             .glass-card { padding: 30px 20px; }
@@ -271,6 +268,8 @@
 </head>
 <body>
 
+    <div class="cursor-glow"></div>
+    <div class="bg-grid"></div>
     <div class="bg-glow"></div>
 
     <nav>
@@ -286,6 +285,7 @@
     <!-- HERO SECTION -->
     <section class="hero">
         <div class="glass-card">
+            <!-- YAHAN APNI PHOTO KA LINK DAALEIN -->
             <img src="https://via.placeholder.com/150" alt="Sonal Kumar" class="profile-img">
             <h1>SONAL KUMAR</h1>
             <p class="role">
@@ -295,11 +295,8 @@
                 <a href="https://www.google.com/maps/place/Noida,+Uttar+Pradesh" target="_blank">📍 Noida, UP</a>
                 <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sonalkumar660446@gmail.com" target="_blank">📧 sonalkumar660446@gmail.com</a>
                 <a href="tel:+918579932774">📱 +91-8579932774</a>
-                
                 <a href="https://wa.me/918579932774" target="_blank" class="whatsapp-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                        <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.4-5-3.8-10.5-6.6z"/>
-                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.4-5-3.8-10.5-6.6z"/></svg>
                     WhatsApp
                 </a>
             </div>
@@ -312,7 +309,7 @@
 
     <!-- KEY METRICS -->
     <div class="section" style="padding-top: 0;">
-        <div class="metrics-grid">
+        <div class="metrics-grid reveal">
             <div class="metric-box"><h3>50K+</h3><p>Records Analyzed</p></div>
             <div class="metric-box"><h3>35%</h3><p>Time Saved</p></div>
             <div class="metric-box"><h3>12%</h3><p>Return Rate Reduced</p></div>
@@ -321,7 +318,7 @@
     </div>
 
     <!-- ABOUT SECTION -->
-    <section id="about" class="section">
+    <section id="about" class="section reveal">
         <h2 class="section-title">About Me</h2>
         <p class="about-text">
             <span id="typewriter-text"></span><span class="cursor"></span>
@@ -329,7 +326,7 @@
     </section>
 
     <!-- EXPERIENCE SECTION -->
-    <section id="experience" class="section">
+    <section id="experience" class="section reveal">
         <h2 class="section-title">Experience</h2>
         <div class="timeline">
             <div class="timeline-item">
@@ -356,7 +353,7 @@
     </section>
 
     <!-- PROJECTS SECTION -->
-    <section id="projects" class="section">
+    <section id="projects" class="section reveal">
         <h2 class="section-title">Key Projects</h2>
         <div class="projects-grid">
             <div class="project-card">
@@ -388,37 +385,20 @@
     </section>
 
     <!-- SKILLS & EDUCATION -->
-    <section id="education" class="section">
+    <section id="education" class="section reveal">
         <div class="two-col">
             <div>
                 <h2 class="section-title">Skills & Languages</h2>
-                
                 <div style="margin-bottom: 30px;">
                     <h4 style="margin-bottom: 15px; color: var(--text-muted);">Technical Skills</h4>
-                    
-                    <span class="skill-tag">
-                        <i class="fa-solid fa-file-excel" style="color: #21A366;"></i> Advanced Excel
-                    </span>
-                    <span class="skill-tag">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg" alt="Power BI"> Power BI
-                    </span>
-                    <span class="skill-tag">
-                        <i class="fa-solid fa-code" style="color: #F2C811;"></i> DAX
-                    </span>
-                    <span class="skill-tag">
-                        <i class="fa-solid fa-filter" style="color: #F2C811;"></i> Power Query
-                    </span>
-                    <span class="skill-tag">
-                        <i class="fa-solid fa-database" style="color: #00758f;"></i> SQL
-                    </span>
-                    <span class="skill-tag">
-                        <i class="fa-solid fa-table" style="color: #E6E6E6;"></i> MIS Reporting
-                    </span>
-                    <span class="skill-tag">
-                        <i class="fa-solid fa-chart-pie" style="color: #60a5fa;"></i> Data Visualization
-                    </span>
+                    <span class="skill-tag"><i class="fa-solid fa-file-excel" style="color: #21A366;"></i> Advanced Excel</span>
+                    <span class="skill-tag"><img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg" alt="Power BI"> Power BI</span>
+                    <span class="skill-tag"><i class="fa-solid fa-code" style="color: #F2C811;"></i> DAX</span>
+                    <span class="skill-tag"><i class="fa-solid fa-filter" style="color: #F2C811;"></i> Power Query</span>
+                    <span class="skill-tag"><i class="fa-solid fa-database" style="color: #00758f;"></i> SQL</span>
+                    <span class="skill-tag"><i class="fa-solid fa-table" style="color: #E6E6E6;"></i> MIS Reporting</span>
+                    <span class="skill-tag"><i class="fa-solid fa-chart-pie" style="color: #60a5fa;"></i> Data Visualization</span>
                 </div>
-                
                 <div>
                     <h4 style="margin-bottom: 15px; color: var(--text-muted);">Languages</h4>
                     <span class="skill-tag">🇬🇧 English</span>
@@ -429,28 +409,23 @@
 
             <div>
                 <h2 class="section-title">Education</h2>
-                
-                <!-- YAHAN APNE GOOGLE DRIVE CERTIFICATE LINKS DAALEIN -->
-                <a href="https://drive.google.com/file/d/1eA2t0h-h-9ODgTTiHDFh8yOrlIp4Wvc2/view?usp=drive_link" target="_blank" class="edu-item">
+                <!-- APNE GOOGLE DRIVE CERTIFICATE LINKS YAHAN DAALEIN -->
+                <a href="https://drive.google.com/file/d/1ea2t0h-h-90DgTTiHDFh8yOrlIp4Wvc2/preview" target="_blank" class="edu-item">
                     <h4>Data Analyst Certification</h4>
                     <p>Ducat IT Training | Power BI, SQL</p>
                 </a>
-                
-                <a href="https://drive.google.com/file/d/133x_TV4BQIpPVRrDlbMg8B-C_jn2pIAL/view?usp=drive_link" target="_blank" class="edu-item">
+                <a href="https://drive.google.com/file/d/133x_TV4BQIpPVRrD1bMg8B-C_jn2plAL/preview" target="_blank" class="edu-item">
                     <h4>B.Sc (Physics Honors)</h4>
                     <p>Magadh University | 2023</p>
                 </a>
-                
-                <a href="https://drive.google.com/file/d/1pcQJzfGG9234QxPfsvH0v7ZhRrcsrllB/view?usp=drive_link" target="_blank" class="edu-item">
+                <a href="https://drive.google.com/file/d/1pcQJzfGG9234QxPfsvH0v7ZhRrcsr1lB/preview" target="_blank" class="edu-item">
                     <h4>Class 12th (CBSE)</h4>
                     <p>Manav Bharti National School | 2018 | 54%</p>
                 </a>
-                
-                <a href="https://drive.google.com/file/d/1TxMRiW4Lv6P-NI81z7lK1vFRyrXnKo0Z/view?usp=drive_link" target="_blank" class="edu-item">
+                <a href="https://drive.google.com/file/d/1TxMRiW4Lv6P-NI8Iz71K1vFRyrXnKo0Z/preview" target="_blank" class="edu-item">
                     <h4>Class 10th (CBSE)</h4>
                     <p>Param Gyan Niketan | 2016 | 9 CGPA</p>
                 </a>
-                
             </div>
         </div>
     </section>
@@ -460,9 +435,29 @@
         <p>© 2025 Sonal Kumar. Built with HTML & CSS. Connect on <a href="https://www.linkedin.com/in/sonal-kumar-1b1b77324">LinkedIn</a>.</p>
     </footer>
 
-    <!-- LOOPING TYPEWRITER ANIMATION SCRIPT -->
+    <!-- ADVANCED JAVASCRIPT (CURSOR, SCROLL REVEAL, TYPEWRITER) -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            
+            // 1. CUSTOM CURSOR JS
+            const cursor = document.querySelector(".cursor-glow");
+            document.addEventListener("mousemove", (e) => {
+                cursor.style.left = e.clientX + "px";
+                cursor.style.top = e.clientY + "px";
+            });
+
+            // 2. SCROLL REVEAL ANIMATION JS
+            const reveals = document.querySelectorAll(".reveal");
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active");
+                    }
+                });
+            }, { threshold: 0.15 });
+            reveals.forEach(reveal => revealObserver.observe(reveal));
+
+            // 3. TYPEWRITER ANIMATION JS
             const aboutSection = document.getElementById('about');
             const target = document.getElementById('typewriter-text');
             const text = "I am a detail-oriented Data Analyst with a strong foundation in Physics and 1 year of hands-on experience in transforming complex, multi-channel operational data into actionable business insights. I specialize in Power BI, Advanced Excel, and SQL, with a proven track record of automating reporting processes and saving over 35% of manual effort. My passion lies in building interactive dashboards that help management make data-driven decisions.";
@@ -472,18 +467,15 @@
             function startTyping() {
                 target.textContent = "";
                 let i = 0;
-
                 setTimeout(() => {
                     function typeWriter() {
                         if (i < text.length) {
                             target.textContent += text.charAt(i);
                             i++;
-                            setTimeout(typeWriter, 25); 
+                            setTimeout(typeWriter, 20); 
                         } else {
                             setTimeout(() => {
-                                if (isVisible) {
-                                    startTyping();
-                                }
+                                if (isVisible) startTyping();
                             }, 35000); 
                         }
                     }
@@ -491,7 +483,7 @@
                 }, 2000);
             }
 
-            const observer = new IntersectionObserver((entries) => {
+            const typeObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         if (!isVisible) {
@@ -503,8 +495,7 @@
                     }
                 });
             }, { threshold: 0.5 });
-
-            observer.observe(aboutSection);
+            typeObserver.observe(aboutSection);
         });
     </script>
 </body>
