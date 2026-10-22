@@ -200,7 +200,9 @@
 
     <section class="hero">
         <div class="hero-card" id="hero-card">
-            <img src="https://via.placeholder.com/150" alt="Sonal Kumar" class="profile-img">
+            <!-- AAPKI PHOTO KA DIRECT LINK YAHAN LAGA HUA HAI -->
+            <img src="https://drive.google.com/thumbnail?id=1wL8rCnm9nROTdZmdJ0iz6jvvy3C2nqB-&sz=w1000" alt="Sonal Kumar" class="profile-img">
+            
             <h1>SONAL KUMAR</h1>
             
             <div class="role-container">
@@ -409,7 +411,7 @@
         let typingTimeout;
 
         function startTyping() {
-            if (!isVisible) return; // Agar user ne scroll kar diya to rok do
+            if (!isVisible) return;
             target.innerHTML = "";
             i = 0;
             
@@ -420,7 +422,6 @@
                     i++;
                     typingTimeout = setTimeout(type, 20); 
                 } else {
-                    // Text poora type hone ke baad 30 second (30000ms) wait karega
                     typingTimeout = setTimeout(() => {
                         startTyping();
                     }, 30000); 
@@ -438,7 +439,7 @@
                     }
                 } else {
                     isVisible = false; 
-                    clearTimeout(typingTimeout); // Pause if scrolled away
+                    clearTimeout(typingTimeout);
                 }
             });
         }, { threshold: 0.5 });
