@@ -60,7 +60,6 @@
         }
         .hero-card:hover::before { opacity: 1; }
         
-        /* 3D HATA DIYA HAI, AB SAB NORMAL HAI */
         .hero-card > * { position: relative; z-index: 1; }
 
         .profile-img {
@@ -78,7 +77,7 @@
         /* ROLES MOTION & GLOW */
         .role-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 35px; flex-wrap: wrap; }
         .role-pill {
-            display: inline-block; /* Exact Hover Area */
+            display: inline-block; 
             font-size: 1rem; font-weight: 600; padding: 8px 18px; border-radius: 50px;
             border: 1px solid var(--border); background: rgba(255,255,255,0.03);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer;
@@ -99,12 +98,12 @@
         .btn-outline { background: transparent; color: #fff; border: 1px solid var(--border); }
         .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
 
-        /* CONTACT INFO - FIXED HOVER AREA */
+        /* CONTACT INFO */
         .contact-info { display: flex; gap: 25px; flex-wrap: wrap; justify-content: center; font-size: 0.95rem; }
         .contact-info a { 
             color: var(--text-muted); text-decoration: none; 
-            display: inline-flex; align-items: center; gap: 8px; /* Tight Flex */
-            transition: 0.3s; cursor: pointer; padding: 5px; /* Thoda padding for better click */
+            display: inline-flex; align-items: center; gap: 8px; 
+            transition: 0.3s; cursor: pointer; padding: 5px;
         }
         .contact-info a:hover { color: #fff; transform: translateY(-2px); text-shadow: 0 0 10px rgba(255,255,255,0.3); }
         .contact-info i { color: var(--sql-blue); }
@@ -123,7 +122,7 @@
             transform-style: preserve-3d;
         }
         .bento-card:hover { border-color: rgba(96, 165, 250, 0.4); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
-        .bento-content { transform: translateZ(10px); } /* Halka sa 3D pop for cards only */
+        .bento-content { transform: translateZ(10px); }
 
         /* Metrics */
         .m-card { grid-column: span 3; text-align: center; padding: 30px; }
@@ -132,7 +131,7 @@
 
         /* About */
         .about-card { grid-column: span 12; }
-        .about-text { font-size: 1.15rem; color: var(--text-muted); line-height: 1.9; }
+        .about-text { font-size: 1.15rem; color: var(--text-muted); line-height: 1.9; min-height: 120px; }
         .type-cursor { color: var(--sql-blue); animation: blink 0.8s infinite; }
 
         /* Experience */
@@ -400,25 +399,51 @@
         }, { threshold: 0.15 });
         reveals.forEach(reveal => revealObserver.observe(reveal));
 
-        // 5. TYPEWRITER ANIMATION
+        // 5. LOOPING TYPEWRITER ANIMATION (REPEAT EVERY 30 SECONDS)
+        const aboutSection = document.getElementById('about');
         const target = document.getElementById('typewriter-text');
         const text = "I am a detail-oriented Data Analyst with a strong foundation in Physics and 1 year of hands-on experience in transforming complex, multi-channel operational data into actionable business insights. I specialize in Power BI, Advanced Excel, and SQL, with a proven track record of automating reporting processes and saving over 35% of manual effort.";
-        let i = 0;
         
-        const typeObserver = new IntersectionObserver((entries) => {
-            if(entries[0].isIntersecting) {
-                function typeWriter() {
-                    if (i < text.length) {
-                        target.innerHTML += text.charAt(i);
-                        i++;
-                        setTimeout(typeWriter, 20); 
-                    }
+        let i = 0;
+        let isVisible = false;
+        let typingTimeout;
+
+        function startTyping() {
+            if (!isVisible) return; // Agar user ne scroll kar diya to rok do
+            target.innerHTML = "";
+            i = 0;
+            
+            function type() {
+                if (!isVisible) return;
+                if (i < text.length) {
+                    target.innerHTML += text.charAt(i);
+                    i++;
+                    typingTimeout = setTimeout(type, 20); 
+                } else {
+                    // Text poora type hone ke baad 30 second (30000ms) wait karega
+                    typingTimeout = setTimeout(() => {
+                        startTyping();
+                    }, 30000); 
                 }
-                typeWriter();
-                typeObserver.disconnect();
             }
+            type();
+        }
+
+        const typeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (!isVisible) {
+                        isVisible = true;
+                        startTyping(); 
+                    }
+                } else {
+                    isVisible = false; 
+                    clearTimeout(typingTimeout); // Pause if scrolled away
+                }
+            });
         }, { threshold: 0.5 });
-        typeObserver.observe(document.getElementById('about'));
+
+        typeObserver.observe(aboutSection);
     </script>
 </body>
 </html>
