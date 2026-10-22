@@ -71,8 +71,20 @@
             -webkit-text-fill-color: transparent; line-height: 1.2;
         }
         
-        /* UPDATED ROLE HERE */
-        .role { color: var(--text-muted); font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 25px; }
+        /* UPDATED ROLE WITH ANIMATION */
+        .role { 
+            color: var(--text-muted); font-size: 1.1rem; letter-spacing: 2px; 
+            text-transform: uppercase; margin-bottom: 25px; display: inline-block;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Smooth Animation */
+            cursor: default;
+        }
+        
+        /* HOVER EFFECT ON ROLE */
+        .role:hover {
+            color: var(--primary);
+            transform: translateY(-4px) scale(1.05); /* Upar uthega aur thoda bada hoga */
+            text-shadow: 0 0 15px rgba(96, 165, 250, 0.7), 0 0 30px rgba(96, 165, 250, 0.4); /* Neon Glow */
+        }
         
         /* Hero Contact Links */
         .hero-contact { 
@@ -194,14 +206,15 @@
     <!-- HERO SECTION -->
     <section class="hero">
         <div class="glass-card">
-            <!-- YAHAN APNI PHOTO KA LINK DAALEIN (ImgBB wala) -->
+            <!-- YAHAN APNI PHOTO KA LINK DAALEIN -->
             <img src="https://via.placeholder.com/150" alt="Sonal Kumar" class="profile-img">
             
             <h1>SONAL KUMAR</h1>
-            <!-- TITLE UPDATED HERE -->
+            
+            <!-- ROLE TEXT WITH HOVER ANIMATION -->
             <p class="role">Data Analyst | Power BI Specialist | MIS Executive</p>
             
-            <!-- UPDATED CONTACT SECTION WITH GOOGLE MAPS & GMAIL LINKS -->
+            <!-- UPDATED CONTACT SECTION -->
             <div class="hero-contact">
                 <a href="https://www.google.com/maps/place/Noida,+Uttar+Pradesh" target="_blank">📍 Noida, UP</a>
                 <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sonalkumar660446@gmail.com" target="_blank">📧 sonalkumar660446@gmail.com</a>
