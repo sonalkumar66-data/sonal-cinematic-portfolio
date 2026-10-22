@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- ULTIMATE CINEMATIC DATA CSS (NO CUSTOM CURSOR) --- */
+        /* --- ULTIMATE CINEMATIC DATA CSS --- */
         :root {
             --bg: #06070a;
             --surface: rgba(20, 24, 35, 0.7);
@@ -21,7 +21,6 @@
             --bi-yellow: #f2c811;
         }
 
-        /* Default cursor restored */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
@@ -51,8 +50,7 @@
             background: var(--surface); border: 1px solid var(--border); border-radius: 24px;
             padding: 50px 40px; backdrop-filter: blur(20px); max-width: 850px; width: 100%;
             text-align: center; box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-            position: relative; overflow: hidden; transform-style: preserve-3d;
-            transition: transform 0.1s ease;
+            position: relative; overflow: hidden;
         }
         
         .hero-card::before {
@@ -61,7 +59,9 @@
             opacity: 0; transition: opacity 0.5s; pointer-events: none;
         }
         .hero-card:hover::before { opacity: 1; }
-        .hero-card > * { position: relative; z-index: 1; transform: translateZ(30px); }
+        
+        /* 3D HATA DIYA HAI, AB SAB NORMAL HAI */
+        .hero-card > * { position: relative; z-index: 1; }
 
         .profile-img {
             width: 150px; height: 150px; border-radius: 50%; object-fit: cover;
@@ -78,13 +78,14 @@
         /* ROLES MOTION & GLOW */
         .role-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 35px; flex-wrap: wrap; }
         .role-pill {
+            display: inline-block; /* Exact Hover Area */
             font-size: 1rem; font-weight: 600; padding: 8px 18px; border-radius: 50px;
             border: 1px solid var(--border); background: rgba(255,255,255,0.03);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer;
         }
-        .role-pill.da:hover { transform: translateY(-8px) scale(1.1); color: #fff; background: var(--sql-blue); border-color: var(--sql-blue); box-shadow: 0 10px 25px rgba(96, 165, 250, 0.4); }
-        .role-pill.pbi:hover { transform: translateY(-8px) scale(1.1); color: #000; background: var(--bi-yellow); border-color: var(--bi-yellow); box-shadow: 0 10px 25px rgba(242, 200, 17, 0.4); }
-        .role-pill.mis:hover { transform: translateY(-8px) scale(1.1); color: #fff; background: var(--excel-green); border-color: var(--excel-green); box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4); }
+        .role-pill.da:hover { transform: translateY(-3px) scale(1.05); color: #fff; background: var(--sql-blue); border-color: var(--sql-blue); box-shadow: 0 10px 25px rgba(96, 165, 250, 0.4); }
+        .role-pill.pbi:hover { transform: translateY(-3px) scale(1.05); color: #000; background: var(--bi-yellow); border-color: var(--bi-yellow); box-shadow: 0 10px 25px rgba(242, 200, 17, 0.4); }
+        .role-pill.mis:hover { transform: translateY(-3px) scale(1.05); color: #fff; background: var(--excel-green); border-color: var(--excel-green); box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4); }
 
         /* MAGNETIC BUTTONS */
         .hero-btns { display: flex; gap: 15px; justify-content: center; margin-bottom: 35px; flex-wrap: wrap; }
@@ -98,9 +99,14 @@
         .btn-outline { background: transparent; color: #fff; border: 1px solid var(--border); }
         .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
 
+        /* CONTACT INFO - FIXED HOVER AREA */
         .contact-info { display: flex; gap: 25px; flex-wrap: wrap; justify-content: center; font-size: 0.95rem; }
-        .contact-info a { color: var(--text-muted); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: 0.3s; cursor: pointer; }
-        .contact-info a:hover { color: #fff; transform: translateY(-3px); }
+        .contact-info a { 
+            color: var(--text-muted); text-decoration: none; 
+            display: inline-flex; align-items: center; gap: 8px; /* Tight Flex */
+            transition: 0.3s; cursor: pointer; padding: 5px; /* Thoda padding for better click */
+        }
+        .contact-info a:hover { color: #fff; transform: translateY(-2px); text-shadow: 0 0 10px rgba(255,255,255,0.3); }
         .contact-info i { color: var(--sql-blue); }
 
         /* BENTO BOX GRID */
@@ -117,7 +123,7 @@
             transform-style: preserve-3d;
         }
         .bento-card:hover { border-color: rgba(96, 165, 250, 0.4); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
-        .bento-content { transform: translateZ(20px); }
+        .bento-content { transform: translateZ(10px); } /* Halka sa 3D pop for cards only */
 
         /* Metrics */
         .m-card { grid-column: span 3; text-align: center; padding: 30px; }
@@ -147,14 +153,14 @@
         .skills-card, .edu-card { grid-column: span 6; }
         .skill-tags { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 25px; }
         .skill-item { 
-            display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.03); 
-            padding: 14px 22px; border-radius: 12px; border: 1px solid var(--border); font-size: 0.95rem; font-weight: 600; transition: 0.4s; cursor: pointer;
+            display: inline-flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.03); 
+            padding: 14px 22px; border-radius: 12px; border: 1px solid var(--border); font-size: 0.95rem; font-weight: 600; transition: 0.3s; cursor: pointer;
         }
-        .skill-item:hover { background: rgba(96, 165, 250, 0.1); border-color: var(--sql-blue); transform: translateY(-5px) scale(1.05); box-shadow: 0 10px 20px rgba(96,165,250,0.2); }
+        .skill-item:hover { background: rgba(96, 165, 250, 0.1); border-color: var(--sql-blue); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(96,165,250,0.2); }
         .skill-item img { width: 22px; height: 22px; }
         
-        .edu-item { display: block; text-decoration: none; padding: 20px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 15px; transition: 0.4s; background: rgba(255,255,255,0.02); cursor: pointer; }
-        .edu-item:hover { background: rgba(96, 165, 250, 0.08); border-color: var(--sql-blue); transform: translateX(10px); }
+        .edu-item { display: block; text-decoration: none; padding: 20px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 15px; transition: 0.3s; background: rgba(255,255,255,0.02); cursor: pointer; }
+        .edu-item:hover { background: rgba(96, 165, 250, 0.08); border-color: var(--sql-blue); transform: translateX(5px); }
         .edu-item h4 { color: #fff; font-size: 1.1rem; margin-bottom: 6px; display: flex; justify-content: space-between; }
         .edu-item p { color: var(--text-muted); font-size: 0.95rem; }
 
@@ -335,7 +341,7 @@
     </section>
 
     <script>
-        // 1. MAGNETIC BUTTONS (Smooth & Lag-Free)
+        // 1. MAGNETIC BUTTONS
         const magneticBtns = document.querySelectorAll('.magnetic');
         magneticBtns.forEach(btn => {
             btn.addEventListener('mousemove', (e) => {
@@ -394,7 +400,7 @@
         }, { threshold: 0.15 });
         reveals.forEach(reveal => revealObserver.observe(reveal));
 
-        // 5. TYPEWRITER ANIMATION (About Me)
+        // 5. TYPEWRITER ANIMATION
         const target = document.getElementById('typewriter-text');
         const text = "I am a detail-oriented Data Analyst with a strong foundation in Physics and 1 year of hands-on experience in transforming complex, multi-channel operational data into actionable business insights. I specialize in Power BI, Advanced Excel, and SQL, with a proven track record of automating reporting processes and saving over 35% of manual effort.";
         let i = 0;
