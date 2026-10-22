@@ -4,19 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sonal Kumar | Data Analyst Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* --- ULTIMATE SMOOTH & PROFESSIONAL CSS --- */
+        /* --- ULTIMATE CINEMATIC DATA CSS --- */
         :root {
-            --bg: #09090b;
-            --surface: rgba(25, 25, 30, 0.4);
+            --bg: #06070a;
+            --surface: rgba(15, 18, 25, 0.6);
             --border: rgba(255, 255, 255, 0.08);
-            --primary: #60a5fa;
-            --secondary: #c084fc;
             --text-main: #f8fafc;
-            --text-muted: #a1a1aa;
+            --text-muted: #94a3b8;
+            
+            /* Data Tool Colors */
+            --sql-blue: #60a5fa;
+            --excel-green: #10b981;
+            --bi-yellow: #f2c811;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
@@ -24,134 +27,180 @@
         body {
             background-color: var(--bg); color: var(--text-main);
             font-family: 'Inter', sans-serif; overflow-x: hidden;
-            /* Smooth animated background mesh */
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(96, 165, 250, 0.08), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(192, 132, 252, 0.08), transparent 25%);
-            background-attachment: fixed;
+            background-image: radial-gradient(circle at 50% 0%, rgba(96, 165, 250, 0.08) 0%, transparent 50%);
+            perspective: 1000px; /* For 3D effects */
         }
 
-        /* 1. SMOOTH CUSTOM CURSOR (OPTIMIZED) */
+        /* 1. SMOOTH CUSTOM CURSOR */
         .cursor-dot, .cursor-outline {
-            position: fixed; top: 0; left: 0;
-            border-radius: 50%; z-index: 9999; pointer-events: none;
-            will-change: transform; /* Hardware acceleration for smoothness */
+            position: fixed; top: 0; left: 0; border-radius: 50%; z-index: 9999; pointer-events: none;
+            will-change: transform;
         }
-        .cursor-dot {
-            width: 6px; height: 6px; background-color: var(--primary);
-            transform: translate(-50%, -50%);
-        }
+        .cursor-dot { width: 6px; height: 6px; background-color: var(--sql-blue); transform: translate(-50%, -50%); }
         .cursor-outline {
             width: 36px; height: 36px; border: 1px solid rgba(96, 165, 250, 0.4);
             transition: width 0.2s, height 0.2s, background-color 0.2s, border-color 0.2s;
             transform: translate(-50%, -50%);
         }
-        .cursor-outline.hovering {
-            width: 60px; height: 60px; background-color: rgba(96, 165, 250, 0.1); border-color: var(--primary);
-        }
+        .cursor-outline.hovering { width: 60px; height: 60px; background-color: rgba(96, 165, 250, 0.1); border-color: var(--sql-blue); }
 
         /* NAVBAR */
         nav {
             display: flex; justify-content: space-between; align-items: center;
             padding: 25px 8%; position: fixed; width: 100%; z-index: 100;
-            backdrop-filter: blur(16px); background: rgba(9, 9, 11, 0.5); border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(16px); background: rgba(6, 7, 10, 0.6); border-bottom: 1px solid var(--border);
         }
-        .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; letter-spacing: 1px; color: #fff; }
-        .nav-links a { color: var(--text-muted); text-decoration: none; margin-left: 40px; font-size: 0.9rem; font-weight: 500; transition: 0.3s; }
-        .nav-links a:hover { color: var(--primary); }
+        .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; color: #fff; letter-spacing: 1px; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; margin-left: 35px; font-size: 0.9rem; font-weight: 600; transition: 0.3s; }
+        .nav-links a:hover { color: var(--sql-blue); text-shadow: 0 0 10px rgba(96, 165, 250, 0.5); }
 
         /* HERO SECTION */
         .hero {
-            min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
-            align-items: center; text-align: center; padding: 120px 20px 60px 20px;
+            min-height: 100vh; display: flex; justify-content: center; align-items: center;
+            padding: 120px 20px 60px 20px; position: relative;
         }
-        .profile-img {
-            width: 160px; height: 160px; border-radius: 50%; object-fit: cover;
-            border: 2px solid var(--primary); box-shadow: 0 0 30px rgba(96, 165, 250, 0.2);
-            margin-bottom: 24px; animation: float 5s ease-in-out infinite;
-        }
-        h1 { font-family: 'Syne', sans-serif; font-size: 4.5rem; line-height: 1.1; margin-bottom: 12px; letter-spacing: -2px; }
-        .role { font-size: 1.1rem; color: var(--primary); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 30px; font-weight: 500; }
         
+        /* 3D GLASS CARD WITH SPOTLIGHT */
+        .hero-card {
+            background: var(--surface); border: 1px solid var(--border); border-radius: 24px;
+            padding: 50px 40px; backdrop-filter: blur(20px); max-width: 850px; width: 100%;
+            text-align: center; box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            position: relative; overflow: hidden; transform-style: preserve-3d;
+            transition: transform 0.1s ease;
+        }
+        
+        /* Spotlight follows mouse */
+        .hero-card::before {
+            content: ""; position: absolute; inset: 0;
+            background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(96, 165, 250, 0.1), transparent 40%);
+            opacity: 0; transition: opacity 0.5s; pointer-events: none;
+        }
+        .hero-card:hover::before { opacity: 1; }
+
+        .hero-card > * { position: relative; z-index: 1; transform: translateZ(30px); } /* 3D pop */
+
+        .profile-img {
+            width: 150px; height: 150px; border-radius: 50%; object-fit: cover;
+            border: 2px solid var(--sql-blue); box-shadow: 0 0 40px rgba(96, 165, 250, 0.3);
+            margin-bottom: 25px; animation: float 5s ease-in-out infinite;
+        }
+        
+        h1 { 
+            font-family: 'Syne', sans-serif; font-size: 4rem; line-height: 1.1; margin-bottom: 15px; 
+            background: linear-gradient(135deg, #fff 30%, var(--sql-blue) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        /* --- ROLES MOTION & GLOW (Restored) --- */
+        .role-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 35px; flex-wrap: wrap; }
+        .role-pill {
+            font-size: 1rem; font-weight: 600; padding: 8px 18px; border-radius: 50px;
+            border: 1px solid var(--border); background: rgba(255,255,255,0.03);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer;
+        }
+        
+        /* Individual Hover Colors for Data Tools */
+        .role-pill.da:hover { 
+            transform: translateY(-8px) scale(1.1); color: #fff; 
+            background: var(--sql-blue); border-color: var(--sql-blue); 
+            box-shadow: 0 10px 25px rgba(96, 165, 250, 0.4); 
+        }
+        .role-pill.pbi:hover { 
+            transform: translateY(-8px) scale(1.1); color: #000; 
+            background: var(--bi-yellow); border-color: var(--bi-yellow); 
+            box-shadow: 0 10px 25px rgba(242, 200, 17, 0.4); 
+        }
+        .role-pill.mis:hover { 
+            transform: translateY(-8px) scale(1.1); color: #fff; 
+            background: var(--excel-green); border-color: var(--excel-green); 
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4); 
+        }
+
         /* MAGNETIC BUTTONS */
-        .hero-btns { display: flex; gap: 15px; margin-bottom: 35px; flex-wrap: wrap; justify-content: center; }
+        .hero-btns { display: flex; gap: 15px; justify-content: center; margin-bottom: 35px; flex-wrap: wrap; }
         .btn {
-            padding: 14px 32px; font-size: 0.95rem; font-weight: 600; border-radius: 50px;
+            padding: 14px 32px; font-size: 0.95rem; font-weight: 700; border-radius: 50px;
             text-decoration: none; display: inline-flex; align-items: center; gap: 10px;
             transition: transform 0.2s, box-shadow 0.3s, background 0.3s;
         }
         .btn-primary { background: #fff; color: #000; }
-        .btn-primary:hover { background: var(--primary); color: #fff; box-shadow: 0 10px 25px rgba(96, 165, 250, 0.4); }
+        .btn-primary:hover { background: var(--sql-blue); color: #fff; box-shadow: 0 10px 25px rgba(96, 165, 250, 0.5); }
         .btn-outline { background: transparent; color: #fff; border: 1px solid var(--border); }
-        .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.05); }
+        .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
 
         .contact-info { display: flex; gap: 25px; flex-wrap: wrap; justify-content: center; font-size: 0.95rem; }
         .contact-info a { color: var(--text-muted); text-decoration: none; display: flex; align-items: center; gap: 8px; transition: 0.3s; }
-        .contact-info a:hover { color: #fff; transform: translateY(-2px); }
-        .contact-info i { color: var(--primary); }
+        .contact-info a:hover { color: #fff; transform: translateY(-3px); }
+        .contact-info i { color: var(--sql-blue); }
 
-        /* BENTO BOX GRID SYSTEM */
+        /* BENTO BOX GRID */
         .section { padding: 100px 8%; max-width: 1400px; margin: 0 auto; }
-        .section-title { font-family: 'Syne', sans-serif; font-size: 2.2rem; margin-bottom: 40px; font-weight: 700; }
+        .section-title { font-family: 'Syne', sans-serif; font-size: 2.5rem; margin-bottom: 45px; font-weight: 800; }
         
-        .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; }
+        .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 25px; }
+        
+        /* 3D TILT CARDS */
         .bento-card {
             background: var(--surface); border: 1px solid var(--border); border-radius: 20px;
             padding: 35px; position: relative; overflow: hidden; backdrop-filter: blur(12px);
-            transition: border-color 0.3s, box-shadow 0.3s;
+            transition: transform 0.1s ease, border-color 0.3s, box-shadow 0.3s;
+            transform-style: preserve-3d;
         }
-        .bento-card:hover { border-color: rgba(96, 165, 250, 0.3); box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
-        
+        .bento-card:hover { border-color: rgba(96, 165, 250, 0.4); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        .bento-content { transform: translateZ(20px); } /* Floats above card */
+
         /* Metrics */
-        .m-card { grid-column: span 3; text-align: center; padding: 25px; }
-        .m-card h3 { font-size: 2.5rem; color: #fff; font-family: 'Syne', sans-serif; margin-bottom: 5px; }
-        .m-card p { color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+        .m-card { grid-column: span 3; text-align: center; padding: 30px; }
+        .m-card h3 { font-size: 3rem; color: #fff; font-family: 'Syne', sans-serif; margin-bottom: 5px; text-shadow: 0 0 20px rgba(255,255,255,0.2); }
+        .m-card p { color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; }
 
         /* About */
         .about-card { grid-column: span 12; }
-        .about-text { font-size: 1.15rem; color: var(--text-muted); line-height: 1.8; }
-        .type-cursor { color: var(--primary); animation: blink 0.8s infinite; }
+        .about-text { font-size: 1.15rem; color: var(--text-muted); line-height: 1.9; }
+        .type-cursor { color: var(--sql-blue); animation: blink 0.8s infinite; }
 
         /* Experience */
         .exp-card { grid-column: span 6; }
-        .exp-card h3 { font-family: 'Syne', sans-serif; font-size: 1.4rem; color: #fff; margin-bottom: 4px; }
-        .exp-card h4 { color: var(--primary); font-size: 0.95rem; margin-bottom: 20px; font-weight: 500; }
+        .exp-card h3 { font-family: 'Syne', sans-serif; font-size: 1.5rem; color: #fff; margin-bottom: 5px; }
+        .exp-card h4 { color: var(--sql-blue); font-size: 1rem; margin-bottom: 20px; font-weight: 600; }
         .exp-card ul { color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; padding-left: 20px; }
-        .exp-card ul li { margin-bottom: 10px; }
+        .exp-card ul li { margin-bottom: 12px; }
 
         /* Projects */
         .proj-card { grid-column: span 4; display: flex; flex-direction: column; justify-content: space-between; }
-        .proj-card h3 { font-family: 'Syne', sans-serif; font-size: 1.25rem; color: #fff; margin-bottom: 12px; }
+        .proj-card h3 { font-family: 'Syne', sans-serif; font-size: 1.3rem; color: #fff; margin-bottom: 15px; }
         .proj-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 25px; }
         .tags { display: flex; flex-wrap: wrap; gap: 8px; }
-        .tag { background: rgba(96, 165, 250, 0.1); color: var(--primary); padding: 5px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; }
+        .tag { background: rgba(96, 165, 250, 0.1); color: var(--sql-blue); padding: 6px 14px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; border: 1px solid rgba(96, 165, 250, 0.2); }
 
         /* Skills & Edu */
         .skills-card, .edu-card { grid-column: span 6; }
-        .skill-tags { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 25px; }
         .skill-item { 
-            display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.03); 
-            padding: 12px 20px; border-radius: 12px; border: 1px solid var(--border); font-size: 0.9rem; transition: 0.3s;
+            display: flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.03); 
+            padding: 14px 22px; border-radius: 12px; border: 1px solid var(--border); font-size: 0.95rem; font-weight: 600; transition: 0.4s;
         }
-        .skill-item:hover { background: rgba(96, 165, 250, 0.1); border-color: var(--primary); transform: scale(1.05); }
-        .skill-item img { width: 20px; height: 20px; }
+        .skill-item:hover { background: rgba(96, 165, 250, 0.1); border-color: var(--sql-blue); transform: translateY(-5px) scale(1.05); box-shadow: 0 10px 20px rgba(96,165,250,0.2); }
+        .skill-item img { width: 22px; height: 22px; }
         
-        .edu-item { display: block; text-decoration: none; padding: 18px 20px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 12px; transition: 0.3s; background: rgba(255,255,255,0.02); }
-        .edu-item:hover { background: rgba(96, 165, 250, 0.05); border-color: var(--primary); transform: translateX(8px); }
-        .edu-item h4 { color: #fff; font-size: 1.05rem; margin-bottom: 6px; display: flex; justify-content: space-between; }
-        .edu-item p { color: var(--text-muted); font-size: 0.9rem; }
+        .edu-item { display: block; text-decoration: none; padding: 20px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 15px; transition: 0.4s; background: rgba(255,255,255,0.02); }
+        .edu-item:hover { background: rgba(96, 165, 250, 0.08); border-color: var(--sql-blue); transform: translateX(10px); }
+        .edu-item h4 { color: #fff; font-size: 1.1rem; margin-bottom: 6px; display: flex; justify-content: space-between; }
+        .edu-item p { color: var(--text-muted); font-size: 0.95rem; }
 
         /* Animations */
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        /* Scroll Reveal 3D */
+        .reveal { opacity: 0; transform: translateY(60px) scale(0.95) rotateX(10deg); transition: all 1s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0) scale(1) rotateX(0deg); }
 
         /* Mobile */
         @media (max-width: 1024px) {
             .m-card { grid-column: span 6; }
             .exp-card, .proj-card, .skills-card, .edu-card { grid-column: span 12; }
-            h1 { font-size: 3.5rem; }
+            h1 { font-size: 3rem; }
         }
         @media (max-width: 768px) {
             * { cursor: auto; }
@@ -161,6 +210,8 @@
             .nav-links { display: none; }
             .section { padding: 60px 5%; }
             .bento-card { padding: 25px; }
+            .role-container { flex-direction: column; align-items: center; }
+            .role-pill { width: 100%; text-align: center; }
         }
     </style>
 </head>
@@ -180,31 +231,47 @@
 
     <!-- HERO SECTION -->
     <section class="hero">
-        <!-- APNI PHOTO KA LINK YAHAN DAALEIN -->
-        <img src="https://via.placeholder.com/150" alt="Sonal Kumar" class="profile-img">
-        <h1>SONAL KUMAR</h1>
-        <p class="role">Data Analyst | Power BI | SQL | MIS Executive</p>
-        
-        <div class="hero-btns">
-            <a href="https://drive.google.com/file/d/1lUwL0QyPOYhK7kcL63QYLuylSsgSXKY0/view" target="_blank" class="btn btn-primary magnetic"><i class="fa-solid fa-file-pdf"></i> Download Resume</a>
-            <a href="https://www.linkedin.com/in/sonal-kumar-1b1b77324" target="_blank" class="btn btn-outline magnetic"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
-        </div>
+        <div class="hero-card" id="hero-card">
+            <!-- APNI PHOTO KA LINK YAHAN DAALEIN -->
+            <img src="https://via.placeholder.com/150" alt="Sonal Kumar" class="profile-img">
+            <h1>SONAL KUMAR</h1>
+            
+            <!-- ROLES WITH INDIVIDUAL GLOW MOTION -->
+            <div class="role-container">
+                <div class="role-pill da">Data Analyst</div>
+                <div class="role-pill pbi">Power BI Specialist</div>
+                <div class="role-pill mis">MIS Executive</div>
+            </div>
+            
+            <div class="hero-btns">
+                <a href="https://drive.google.com/file/d/1lUwL0QyPOYhK7kcL63QYLuylSsgSXKY0/view" target="_blank" class="btn btn-primary magnetic"><i class="fa-solid fa-file-pdf"></i> Download Resume</a>
+                <a href="https://www.linkedin.com/in/sonal-kumar-1b1b77324" target="_blank" class="btn btn-outline magnetic"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+            </div>
 
-        <div class="contact-info">
-            <a href="https://www.google.com/maps/place/Noida,+Uttar+Pradesh" target="_blank"><i class="fa-solid fa-location-dot"></i> Noida, UP</a>
-            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sonalkumar660446@gmail.com" target="_blank"><i class="fa-solid fa-envelope"></i> sonalkumar660446@gmail.com</a>
-            <a href="tel:+918579932774"><i class="fa-solid fa-phone"></i> +91-8579932774</a>
-            <a href="https://wa.me/918579932774" target="_blank" style="color: #25D366;"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+            <div class="contact-info">
+                <a href="https://www.google.com/maps/place/Noida,+Uttar+Pradesh" target="_blank"><i class="fa-solid fa-location-dot"></i> Noida, UP</a>
+                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sonalkumar660446@gmail.com" target="_blank"><i class="fa-solid fa-envelope"></i> sonalkumar660446@gmail.com</a>
+                <a href="tel:+918579932774"><i class="fa-solid fa-phone"></i> +91-8579932774</a>
+                <a href="https://wa.me/918579932774" target="_blank" style="color: #25D366;"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+            </div>
         </div>
     </section>
 
     <!-- METRICS -->
     <div class="section" style="padding-top: 0;">
         <div class="bento-grid reveal">
-            <div class="bento-card m-card"><h3>50K+</h3><p>Records Analyzed</p></div>
-            <div class="bento-card m-card"><h3>35%</h3><p>Time Saved</p></div>
-            <div class="bento-card m-card"><h3>12%</h3><p>Return Reduced</p></div>
-            <div class="bento-card m-card"><h3>100%</h3><p>Data Accuracy</p></div>
+            <div class="bento-card m-card tilt-card">
+                <div class="bento-content"><h3>50K+</h3><p>Records Analyzed</p></div>
+            </div>
+            <div class="bento-card m-card tilt-card">
+                <div class="bento-content"><h3>35%</h3><p>Time Saved</p></div>
+            </div>
+            <div class="bento-card m-card tilt-card">
+                <div class="bento-content"><h3>12%</h3><p>Return Reduced</p></div>
+            </div>
+            <div class="bento-card m-card tilt-card">
+                <div class="bento-content"><h3>100%</h3><p>Data Accuracy</p></div>
+            </div>
         </div>
     </div>
 
@@ -224,23 +291,27 @@
     <section id="experience" class="section reveal">
         <h2 class="section-title">Experience</h2>
         <div class="bento-grid">
-            <div class="bento-card exp-card">
-                <h3>MIS Executive</h3>
-                <h4>Divine Trends Light Manufacturers</h4>
-                <ul>
-                    <li>Automated daily, weekly, and monthly MIS reports using Advanced Excel to track sales orders and operational KPIs.</li>
-                    <li>Processed daily order entries, stock movements, and operational records across multi-channel sales systems.</li>
-                    <li>Conducted daily data verification and reconciliation checks to eliminate discrepancies.</li>
-                </ul>
+            <div class="bento-card exp-card tilt-card">
+                <div class="bento-content">
+                    <h3>MIS Executive</h3>
+                    <h4>Divine Trends Light Manufacturers</h4>
+                    <ul>
+                        <li>Automated daily, weekly, and monthly MIS reports using Advanced Excel to track sales orders and operational KPIs.</li>
+                        <li>Processed daily order entries, stock movements, and operational records across multi-channel sales systems.</li>
+                        <li>Conducted daily data verification and reconciliation checks to eliminate discrepancies.</li>
+                    </ul>
+                </div>
             </div>
-            <div class="bento-card exp-card">
-                <h3>Data Entry & MIS Assistant</h3>
-                <h4>Dal Mill Industry</h4>
-                <ul>
-                    <li>Managed daily inventory records and prepared production reports using Excel-based automation.</li>
-                    <li>Recorded daily stock movements, production outputs, and warehouse transactions with 100% accuracy.</li>
-                    <li>Prepared weekly inventory reconciliation and production performance reports.</li>
-                </ul>
+            <div class="bento-card exp-card tilt-card">
+                <div class="bento-content">
+                    <h3>Data Entry & MIS Assistant</h3>
+                    <h4>Dal Mill Industry</h4>
+                    <ul>
+                        <li>Managed daily inventory records and prepared production reports using Excel-based automation.</li>
+                        <li>Recorded daily stock movements, production outputs, and warehouse transactions with 100% accuracy.</li>
+                        <li>Prepared weekly inventory reconciliation and production performance reports.</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
@@ -249,26 +320,32 @@
     <section id="projects" class="section reveal">
         <h2 class="section-title">Key Projects</h2>
         <div class="bento-grid">
-            <div class="bento-card proj-card">
-                <div>
+            <div class="bento-card proj-card tilt-card">
+                <div class="bento-content">
                     <h3>Sales Performance Dashboard</h3>
                     <p>Cleaned and transformed 50,000+ raw sales records using Power Query. Developed custom DAX measures for key metrics. Designed interactive KPI dashboards.</p>
                 </div>
-                <div class="tags"><span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">Power Query</span></div>
+                <div class="tags">
+                    <span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">Power Query</span>
+                </div>
             </div>
-            <div class="bento-card proj-card">
-                <div>
+            <div class="bento-card proj-card tilt-card">
+                <div class="bento-content">
                     <h3>Customer Complaint Analytics</h3>
                     <p>Built an interactive dashboard to monitor complaint volumes and resolution trends. Created DAX-based KPI measures to track service-level performance.</p>
                 </div>
-                <div class="tags"><span class="tag">Power BI</span><span class="tag">Data Viz</span></div>
+                <div class="tags">
+                    <span class="tag">Power BI</span><span class="tag">Data Viz</span>
+                </div>
             </div>
-            <div class="bento-card proj-card">
-                <div>
+            <div class="bento-card proj-card tilt-card">
+                <div class="bento-content">
                     <h3>Amazon Returns Tracker</h3>
                     <p>Analyzed returns and SKU performance across 10,000+ transactions. Developed automated Pivot Table-based MIS reports using XLOOKUP.</p>
                 </div>
-                <div class="tags"><span class="tag">Advanced Excel</span><span class="tag">MIS</span></div>
+                <div class="tags">
+                    <span class="tag">Advanced Excel</span><span class="tag">MIS</span>
+                </div>
             </div>
         </div>
     </section>
@@ -276,49 +353,53 @@
     <!-- SKILLS & EDUCATION -->
     <section id="education" class="section reveal">
         <div class="bento-grid">
-            <div class="bento-card skills-card">
-                <h2 class="section-title" style="font-size: 1.5rem; margin-bottom: 15px;">Skills & Languages</h2>
-                <div class="skill-tags">
-                    <div class="skill-item"><i class="fa-solid fa-file-excel" style="color: #21A366;"></i> Advanced Excel</div>
-                    <div class="skill-item"><img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg"> Power BI</div>
-                    <div class="skill-item"><i class="fa-solid fa-code" style="color: #F2C811;"></i> DAX</div>
-                    <div class="skill-item"><i class="fa-solid fa-database" style="color: #00758f;"></i> SQL</div>
-                    <div class="skill-item"><i class="fa-solid fa-filter" style="color: #F2C811;"></i> Power Query</div>
-                    <div class="skill-item"><i class="fa-solid fa-table" style="color: #E6E6E6;"></i> MIS</div>
-                    <div class="skill-item">🇬🇧 English</div>
-                    <div class="skill-item">🇮🇳 Hindi</div>
-                    <div class="skill-item">🇯🇵 Japanese</div>
+            <div class="bento-card skills-card tilt-card">
+                <div class="bento-content">
+                    <h2 class="section-title" style="font-size: 1.8rem; margin-bottom: 15px;">Tech Stack</h2>
+                    <div class="skill-tags">
+                        <div class="skill-item"><i class="fa-solid fa-file-excel" style="color: #21A366;"></i> Advanced Excel</div>
+                        <div class="skill-item"><img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg"> Power BI</div>
+                        <div class="skill-item"><i class="fa-solid fa-code" style="color: #F2C811;"></i> DAX</div>
+                        <div class="skill-item"><i class="fa-solid fa-database" style="color: #60a5fa;"></i> SQL</div>
+                        <div class="skill-item"><i class="fa-solid fa-filter" style="color: #F2C811;"></i> Power Query</div>
+                        <div class="skill-item"><i class="fa-solid fa-table" style="color: #E6E6E6;"></i> MIS Reporting</div>
+                        <div class="skill-item">🇬🇧 English</div>
+                        <div class="skill-item">🇮🇳 Hindi</div>
+                        <div class="skill-item">🇯🇵 Japanese</div>
+                    </div>
                 </div>
             </div>
 
-            <div class="bento-card edu-card">
-                <h2 class="section-title" style="font-size: 1.5rem; margin-bottom: 15px;">Education & Certificates</h2>
-                <a href="https://drive.google.com/file/d/1ea2t0h-h-90DgTTiHDFh8yOrlIp4Wvc2/preview" target="_blank" class="edu-item">
-                    <h4>Data Analyst Certification <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.8rem; color: var(--primary);"></i></h4>
-                    <p>Ducat IT Training | Power BI, SQL</p>
-                </a>
-                <a href="https://drive.google.com/file/d/133x_TV4BQIpPVRrD1bMg8B-C_jn2plAL/preview" target="_blank" class="edu-item">
-                    <h4>B.Sc (Physics Honors) <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.8rem; color: var(--primary);"></i></h4>
-                    <p>Magadh University | 2023</p>
-                </a>
-                <a href="https://drive.google.com/file/d/1pcQJzfGG9234QxPfsvH0v7ZhRrcsr1lB/preview" target="_blank" class="edu-item">
-                    <h4>Class 12th (CBSE) <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.8rem; color: var(--primary);"></i></h4>
-                    <p>Manav Bharti National School | 2018 | 54%</p>
-                </a>
-                <a href="https://drive.google.com/file/d/1TxMRiW4Lv6P-NI8Iz71K1vFRyrXnKo0Z/preview" target="_blank" class="edu-item">
-                    <h4>Class 10th (CBSE) <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.8rem; color: var(--primary);"></i></h4>
-                    <p>Param Gyan Niketan | 2016 | 9 CGPA</p>
-                </a>
+            <div class="bento-card edu-card tilt-card">
+                <div class="bento-content">
+                    <h2 class="section-title" style="font-size: 1.8rem; margin-bottom: 15px;">Education</h2>
+                    <a href="https://drive.google.com/file/d/1ea2t0h-h-90DgTTiHDFh8yOrlIp4Wvc2/preview" target="_blank" class="edu-item">
+                        <h4>Data Analyst Certification <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.9rem; color: var(--sql-blue);"></i></h4>
+                        <p>Ducat IT Training | Power BI, SQL</p>
+                    </a>
+                    <a href="https://drive.google.com/file/d/133x_TV4BQIpPVRrD1bMg8B-C_jn2plAL/preview" target="_blank" class="edu-item">
+                        <h4>B.Sc (Physics Honors) <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.9rem; color: var(--sql-blue);"></i></h4>
+                        <p>Magadh University | 2023</p>
+                    </a>
+                    <a href="https://drive.google.com/file/d/1pcQJzfGG9234QxPfsvH0v7ZhRrcsr1lB/preview" target="_blank" class="edu-item">
+                        <h4>Class 12th (CBSE) <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.9rem; color: var(--sql-blue);"></i></h4>
+                        <p>Manav Bharti National School | 2018 | 54%</p>
+                    </a>
+                    <a href="https://drive.google.com/file/d/1TxMRiW4Lv6P-NI8Iz71K1vFRyrXnKo0Z/preview" target="_blank" class="edu-item">
+                        <h4>Class 10th (CBSE) <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.9rem; color: var(--sql-blue);"></i></h4>
+                        <p>Param Gyan Niketan | 2016 | 9 CGPA</p>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // 1. SMOOTH CUSTOM CURSOR (RequestAnimationFrame for 60fps)
+        // 1. SMOOTH CUSTOM CURSOR
         const cursorDot = document.querySelector('.cursor-dot');
         const cursorOutline = document.querySelector('.cursor-outline');
-        const links = document.querySelectorAll('a, .bento-card');
+        const links = document.querySelectorAll('a, .bento-card, .role-pill');
 
         let mouseX = 0, mouseY = 0;
         let outlineX = 0, outlineY = 0;
@@ -326,13 +407,10 @@
         window.addEventListener('mousemove', (e) => {
             mouseX = e.clientX;
             mouseY = e.clientY;
-            // Dot matches instantly
             cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
         });
 
-        // Smooth follow for Outline
         function animateCursor() {
-            // Linear Interpolation (Lerp) for smooth delay
             outlineX += (mouseX - outlineX) * 0.15;
             outlineY += (mouseY - outlineY) * 0.15;
             cursorOutline.style.transform = `translate(${outlineX}px, ${outlineY}px) translate(-50%, -50%)`;
@@ -340,7 +418,6 @@
         }
         animateCursor();
 
-        // Cursor Hover Effect
         links.forEach(link => {
             link.addEventListener('mouseenter', () => cursorOutline.classList.add('hovering'));
             link.addEventListener('mouseleave', () => cursorOutline.classList.remove('hovering'));
@@ -353,21 +430,52 @@
                 const rect = btn.getBoundingClientRect();
                 const x = e.clientX - rect.left - rect.width / 2;
                 const y = e.clientY - rect.top - rect.height / 2;
-                btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`; // Subtle movement
+                btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
             });
             btn.addEventListener('mouseleave', () => {
                 btn.style.transform = `translate(0px, 0px)`;
             });
         });
 
-        // 3. SCROLL REVEAL
+        // 3. HERO SPOTLIGHT EFFECT (Follows Mouse)
+        const heroCard = document.getElementById('hero-card');
+        heroCard.addEventListener('mousemove', e => {
+            const rect = heroCard.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            heroCard.style.setProperty('--mouse-x', `${x}px`);
+            heroCard.style.setProperty('--mouse-y', `${y}px`);
+        });
+
+        // 4. 3D TILT EFFECT FOR BENTO CARDS
+        const tiltCards = document.querySelectorAll('.tilt-card');
+        tiltCards.forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = ((y - centerY) / centerY) * -8; // Max 8 degrees
+                const rotateY = ((x - centerX) / centerX) * 8;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)`;
+            });
+        });
+
+        // 5. SCROLL REVEAL 3D
         const reveals = document.querySelectorAll(".reveal");
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add("active"); });
         }, { threshold: 0.15 });
         reveals.forEach(reveal => revealObserver.observe(reveal));
 
-        // 4. CLEAN TYPEWRITER (About Me)
+        // 6. CLEAN TYPEWRITER (About Me)
         const target = document.getElementById('typewriter-text');
         const text = "I am a detail-oriented Data Analyst with a strong foundation in Physics and 1 year of hands-on experience in transforming complex, multi-channel operational data into actionable business insights. I specialize in Power BI, Advanced Excel, and SQL, with a proven track record of automating reporting processes and saving over 35% of manual effort.";
         let i = 0;
@@ -378,7 +486,7 @@
                     if (i < text.length) {
                         target.innerHTML += text.charAt(i);
                         i++;
-                        setTimeout(typeWriter, 25); // Smooth typing
+                        setTimeout(typeWriter, 20); 
                     }
                 }
                 typeWriter();
