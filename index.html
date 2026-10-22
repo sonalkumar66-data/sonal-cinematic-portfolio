@@ -206,8 +206,10 @@
         .skill-tag img { width: 20px; height: 20px; object-fit: contain; }
         .skill-tag i { font-size: 1.2rem; }
 
-        /* EDUCATION ITEM WITH ANIMATION */
+        /* EDUCATION ITEM WITH ANIMATION & CLICKABLE */
         .edu-item { 
+            display: block;
+            text-decoration: none; /* Removes default link underline */
             margin-bottom: 20px; 
             background: var(--card-bg); 
             border: 1px solid var(--border);
@@ -215,7 +217,7 @@
             padding: 15px 20px; 
             border-radius: 0 10px 10px 0; 
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: default;
+            cursor: pointer; /* Changes cursor to a pointing hand */
         }
         
         .edu-item:hover {
@@ -226,7 +228,31 @@
             background: rgba(96, 165, 250, 0.05);
         }
 
-        .edu-item h4 { color: #fff; font-size: 1.1rem; margin-bottom: 5px; }
+        .edu-item h4 { 
+            color: #fff; 
+            font-size: 1.1rem; 
+            margin-bottom: 5px; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* Small Icon to show it's a link */
+        .edu-item h4::after {
+            content: '\f08e'; /* FontAwesome external link icon */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            font-size: 0.8rem;
+            color: var(--primary);
+            opacity: 0.5;
+            transition: 0.3s;
+        }
+
+        .edu-item:hover h4::after {
+            opacity: 1;
+            transform: translateX(5px);
+        }
+
         .edu-item p { color: var(--text-muted); font-size: 0.9rem; }
 
         /* Footer */
@@ -403,22 +429,28 @@
 
             <div>
                 <h2 class="section-title">Education</h2>
-                <div class="edu-item">
+                
+                <!-- YAHAN APNE GOOGLE DRIVE CERTIFICATE LINKS DAALEIN -->
+                <a href="https://drive.google.com/file/d/1eA2t0h-h-9ODgTTiHDFh8yOrlIp4Wvc2/view?usp=drive_link" target="_blank" class="edu-item">
                     <h4>Data Analyst Certification</h4>
                     <p>Ducat IT Training | Power BI, SQL</p>
-                </div>
-                <div class="edu-item">
+                </a>
+                
+                <a href="https://drive.google.com/file/d/133x_TV4BQIpPVRrDlbMg8B-C_jn2pIAL/view?usp=drive_link" target="_blank" class="edu-item">
                     <h4>B.Sc (Physics Honors)</h4>
                     <p>Magadh University | 2023</p>
-                </div>
-                <div class="edu-item">
+                </a>
+                
+                <a href="https://drive.google.com/file/d/1pcQJzfGG9234QxPfsvH0v7ZhRrcsrllB/view?usp=drive_link" target="_blank" class="edu-item">
                     <h4>Class 12th (CBSE)</h4>
                     <p>Manav Bharti National School | 2018 | 54%</p>
-                </div>
-                <div class="edu-item">
+                </a>
+                
+                <a href="https://drive.google.com/file/d/1TxMRiW4Lv6P-NI81z7lK1vFRyrXnKo0Z/view?usp=drive_link" target="_blank" class="edu-item">
                     <h4>Class 10th (CBSE)</h4>
                     <p>Param Gyan Niketan | 2016 | 9 CGPA</p>
-                </div>
+                </a>
+                
             </div>
         </div>
     </section>
