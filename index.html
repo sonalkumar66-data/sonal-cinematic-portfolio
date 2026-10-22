@@ -33,22 +33,29 @@
         /* NAVBAR */
         nav {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 25px 8%; position: fixed; width: 100%; z-index: 100;
-            backdrop-filter: blur(16px); background: rgba(6, 7, 10, 0.6); border-bottom: 1px solid var(--border);
+            padding: 20px 8%; position: fixed; width: 100%; z-index: 100;
+            backdrop-filter: blur(16px); background: rgba(6, 7, 10, 0.8); border-bottom: 1px solid var(--border);
+            transition: 0.3s;
         }
         .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; color: #fff; letter-spacing: 1px; }
-        .nav-links a { color: var(--text-muted); text-decoration: none; margin-left: 35px; font-size: 0.9rem; font-weight: 600; transition: 0.3s; cursor: pointer; }
+        
+        /* Desktop Nav */
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: 0.3s; }
         .nav-links a:hover { color: var(--sql-blue); text-shadow: 0 0 10px rgba(96, 165, 250, 0.5); }
+
+        /* Mobile Menu Icon */
+        .menu-btn { display: none; font-size: 1.5rem; color: #fff; cursor: pointer; }
 
         /* HERO SECTION */
         .hero {
             min-height: 100vh; display: flex; justify-content: center; align-items: center;
-            padding: 120px 20px 60px 20px; position: relative;
+            padding: 100px 20px 40px 20px; position: relative;
         }
         
         .hero-card {
             background: var(--surface); border: 1px solid var(--border); border-radius: 24px;
-            padding: 50px 40px; backdrop-filter: blur(20px); max-width: 850px; width: 100%;
+            padding: 45px 40px; backdrop-filter: blur(20px); max-width: 850px; width: 100%;
             text-align: center; box-shadow: 0 30px 60px rgba(0,0,0,0.5);
             position: relative; overflow: hidden;
         }
@@ -62,22 +69,22 @@
         .hero-card > * { position: relative; z-index: 1; }
 
         .profile-img {
-            width: 150px; height: 150px; border-radius: 50%; object-fit: cover;
+            width: 140px; height: 140px; border-radius: 50%; object-fit: cover;
             border: 2px solid var(--sql-blue); box-shadow: 0 0 40px rgba(96, 165, 250, 0.3);
-            margin-bottom: 25px; animation: float 5s ease-in-out infinite;
+            margin-bottom: 20px; animation: float 5s ease-in-out infinite;
         }
         
         h1 { 
-            font-family: 'Syne', sans-serif; font-size: 4rem; line-height: 1.1; margin-bottom: 15px; 
+            font-family: 'Syne', sans-serif; font-size: 3.5rem; line-height: 1.1; margin-bottom: 15px; 
             background: linear-gradient(135deg, #fff 30%, var(--sql-blue) 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
         /* ROLES MOTION & CLICK EFFECT */
-        .role-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 35px; flex-wrap: wrap; }
+        .role-container { display: flex; justify-content: center; gap: 12px; margin-bottom: 25px; flex-wrap: wrap; }
         .role-pill {
             display: inline-block; 
-            font-size: 1rem; font-weight: 600; padding: 8px 18px; border-radius: 50px;
+            font-size: 0.95rem; font-weight: 600; padding: 8px 16px; border-radius: 50px;
             border: 1px solid var(--border); background: rgba(255,255,255,0.03);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer;
         }
@@ -88,10 +95,10 @@
         .role-pill.mis:hover { color: #fff; background: var(--excel-green); border-color: var(--excel-green); box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4); }
 
         /* MAGNETIC BUTTONS */
-        .hero-btns { display: flex; gap: 15px; justify-content: center; margin-bottom: 35px; flex-wrap: wrap; }
+        .hero-btns { display: flex; gap: 12px; justify-content: center; margin-bottom: 25px; flex-wrap: wrap; }
         .btn {
-            padding: 14px 32px; font-size: 0.95rem; font-weight: 700; border-radius: 50px;
-            text-decoration: none; display: inline-flex; align-items: center; gap: 10px;
+            padding: 12px 28px; font-size: 0.9rem; font-weight: 700; border-radius: 50px;
+            text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
             transition: transform 0.2s, box-shadow 0.3s, background 0.3s; cursor: pointer;
         }
         .btn-primary { background: #fff; color: #000; }
@@ -100,76 +107,77 @@
         .btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
 
         /* CONTACT INFO */
-        .contact-info { display: flex; gap: 25px; flex-wrap: wrap; justify-content: center; font-size: 0.95rem; }
-        .contact-info a { color: var(--text-muted); text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: 0.3s; cursor: pointer; padding: 5px; }
-        .contact-info a:hover { color: #fff; transform: translateY(-2px); text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+        .contact-info { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; font-size: 0.9rem; }
+        .contact-info a { color: var(--text-muted); text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: 0.3s; cursor: pointer; }
+        .contact-info a:hover { color: #fff; transform: translateY(-2px); }
         .contact-info i { color: var(--sql-blue); }
 
         /* BENTO BOX GRID */
-        .section { padding: 100px 8%; max-width: 1400px; margin: 0 auto; }
-        .section-title { font-family: 'Syne', sans-serif; font-size: 2.5rem; margin-bottom: 45px; font-weight: 800; }
+        .section { padding: 80px 8%; max-width: 1400px; margin: 0 auto; }
+        .section-title { font-family: 'Syne', sans-serif; font-size: 2.2rem; margin-bottom: 35px; font-weight: 800; }
         
-        .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 25px; }
+        .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; }
         
         .bento-card {
             background: var(--surface); border: 1px solid var(--border); border-radius: 20px;
-            padding: 35px; position: relative; overflow: hidden;
+            padding: 30px; position: relative; overflow: hidden;
             transition: transform 0.1s ease, border-color 0.3s, box-shadow 0.3s; transform-style: preserve-3d;
         }
         .bento-card:hover { border-color: rgba(96, 165, 250, 0.4); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
         .bento-content { transform: translateZ(10px); }
 
         /* Metrics */
-        .m-card { grid-column: span 3; text-align: center; padding: 30px; }
-        .m-card h3 { font-size: 3rem; color: #fff; font-family: 'Syne', sans-serif; margin-bottom: 5px; text-shadow: 0 0 20px rgba(255,255,255,0.2); }
-        .m-card p { color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; }
+        .m-card { grid-column: span 3; text-align: center; padding: 25px 15px; }
+        .m-card h3 { font-size: 2.8rem; color: #fff; font-family: 'Syne', sans-serif; margin-bottom: 5px; }
+        .m-card p { color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
 
         /* About */
         .about-card { grid-column: span 12; }
-        .about-text { font-size: 1.15rem; color: var(--text-muted); line-height: 1.9; min-height: 120px; }
+        .about-text { font-size: 1.05rem; color: var(--text-muted); line-height: 1.8; min-height: 120px; }
         .type-cursor { color: var(--sql-blue); animation: blink 0.8s infinite; }
 
         /* Experience */
         .exp-card { grid-column: span 6; }
-        .exp-card h3 { font-family: 'Syne', sans-serif; font-size: 1.5rem; color: #fff; margin-bottom: 5px; }
-        .exp-card h4 { color: var(--sql-blue); font-size: 1rem; margin-bottom: 20px; font-weight: 600; }
-        .exp-card ul { color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; padding-left: 20px; }
-        .exp-card ul li { margin-bottom: 12px; }
+        .exp-card h3 { font-family: 'Syne', sans-serif; font-size: 1.3rem; color: #fff; margin-bottom: 5px; }
+        .exp-card h4 { color: var(--sql-blue); font-size: 0.95rem; margin-bottom: 15px; font-weight: 600; }
+        .exp-card ul { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; padding-left: 18px; }
+        .exp-card ul li { margin-bottom: 10px; }
 
         /* Projects */
         .proj-card { grid-column: span 4; display: flex; flex-direction: column; justify-content: space-between; }
-        .proj-card h3 { font-family: 'Syne', sans-serif; font-size: 1.3rem; color: #fff; margin-bottom: 15px; }
-        .proj-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 25px; }
-        .tags { display: flex; flex-wrap: wrap; gap: 8px; }
-        .tag { background: rgba(96, 165, 250, 0.1); color: var(--sql-blue); padding: 6px 14px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; border: 1px solid rgba(96, 165, 250, 0.2); }
+        .proj-card h3 { font-family: 'Syne', sans-serif; font-size: 1.2rem; color: #fff; margin-bottom: 12px; }
+        .proj-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; }
+        .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+        .tag { background: rgba(96, 165, 250, 0.1); color: var(--sql-blue); padding: 5px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; border: 1px solid rgba(96, 165, 250, 0.2); }
 
         /* Skills & Edu */
         .skills-card, .edu-card { grid-column: span 6; }
-        .skill-tags { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 25px; }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
         .skill-item { 
-            display: inline-flex; align-items: center; gap: 12px; background: rgba(255,255,255,0.03); 
-            padding: 14px 22px; border-radius: 12px; border: 1px solid var(--border); font-size: 0.95rem; font-weight: 600; transition: 0.3s; cursor: pointer;
+            display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.03); 
+            padding: 12px 18px; border-radius: 12px; border: 1px solid var(--border); font-size: 0.9rem; font-weight: 600; transition: 0.3s; cursor: pointer;
         }
-        .skill-item:hover { background: rgba(96, 165, 250, 0.1); border-color: var(--sql-blue); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(96,165,250,0.2); }
-        .skill-item img { width: 22px; height: 22px; }
+        .skill-item:hover { background: rgba(96, 165, 250, 0.1); border-color: var(--sql-blue); transform: translateY(-3px); }
+        .skill-item img { width: 20px; height: 20px; }
         
-        .edu-item { display: block; text-decoration: none; padding: 20px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 15px; transition: 0.3s; background: rgba(255,255,255,0.02); cursor: pointer; }
+        .edu-item { display: block; text-decoration: none; padding: 15px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 12px; transition: 0.3s; background: rgba(255,255,255,0.02); cursor: pointer; }
         .edu-item:hover { background: rgba(96, 165, 250, 0.08); border-color: var(--sql-blue); transform: translateX(5px); }
-        .edu-item h4 { color: #fff; font-size: 1.1rem; margin-bottom: 6px; display: flex; justify-content: space-between; }
-        .edu-item p { color: var(--text-muted); font-size: 0.95rem; }
+        .edu-item h4 { color: #fff; font-size: 1rem; margin-bottom: 5px; display: flex; justify-content: space-between; }
+        .edu-item p { color: var(--text-muted); font-size: 0.85rem; }
 
         /* --- MODAL POPUP CSS --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px);
             display: flex; justify-content: center; align-items: center;
             opacity: 0; pointer-events: none; transition: opacity 0.3s ease; z-index: 9999;
+            padding: 20px;
         }
         .modal-overlay.active { opacity: 1; pointer-events: all; }
         
         .modal-box {
             background: #0d1117; border: 1px solid var(--sql-blue); border-radius: 20px;
-            padding: 40px; max-width: 500px; width: 90%; position: relative;
+            padding: 30px; max-width: 500px; width: 100%; position: relative;
             transform: translateY(30px) scale(0.95); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             box-shadow: 0 0 50px rgba(96, 165, 250, 0.2);
         }
@@ -181,18 +189,15 @@
         }
         .close-modal:hover { color: #fff; transform: rotate(90deg); }
         
-        .modal-box h3 { font-family: 'Syne', sans-serif; font-size: 1.8rem; margin-bottom: 10px; }
-        .modal-box p { color: var(--text-muted); font-size: 1rem; line-height: 1.7; margin-bottom: 20px; }
-        .modal-box ul { color: var(--text-main); font-size: 0.95rem; padding-left: 20px; line-height: 1.8; }
-        .modal-box ul li { margin-bottom: 8px; }
+        .modal-box h3 { font-family: 'Syne', sans-serif; font-size: 1.5rem; margin-bottom: 10px; }
+        .modal-box p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 15px; }
+        .modal-box ul { color: var(--text-main); font-size: 0.9rem; padding-left: 20px; line-height: 1.7; }
 
         /* Dynamic Glow Classes for Modal */
         .modal-da .modal-box { border-color: var(--sql-blue); box-shadow: 0 0 50px rgba(96, 165, 250, 0.2); }
         .modal-da h3 { color: var(--sql-blue); }
-        
         .modal-pbi .modal-box { border-color: var(--bi-yellow); box-shadow: 0 0 50px rgba(242, 200, 17, 0.2); }
         .modal-pbi h3 { color: var(--bi-yellow); }
-        
         .modal-mis .modal-box { border-color: var(--excel-green); box-shadow: 0 0 50px rgba(16, 185, 129, 0.2); }
         .modal-mis h3 { color: var(--excel-green); }
 
@@ -200,23 +205,57 @@
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
         
-        .reveal { opacity: 0; transform: translateY(60px) scale(0.95) rotateX(10deg); transition: all 1s cubic-bezier(0.5, 0, 0, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0) scale(1) rotateX(0deg); }
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* Mobile */
+        /* --- RESPONSIVE DESIGN (TABLET & MOBILE) --- */
         @media (max-width: 1024px) {
             .m-card { grid-column: span 6; }
             .exp-card, .proj-card, .skills-card, .edu-card { grid-column: span 12; }
             h1 { font-size: 3rem; }
+            .section { padding: 60px 6%; }
         }
+
         @media (max-width: 768px) {
+            /* Navbar */
+            nav { padding: 15px 5%; }
+            .nav-links { display: none; } /* Hide desktop links */
+            .menu-btn { display: block; }
+            
+            /* Hero Section */
+            .hero-card { padding: 30px 15px; border-radius: 16px; margin-top: 10px; }
+            .profile-img { width: 120px; height: 120px; }
+            h1 { font-size: 2.2rem; }
+            .role-container { flex-direction: column; gap: 10px; }
+            .role-pill { width: 100%; font-size: 0.9rem; padding: 12px; }
+            
+            /* Buttons */
+            .hero-btns { flex-direction: column; width: 100%; gap: 10px; }
+            .btn { width: 100%; padding: 14px; }
+            
+            /* Contact */
+            .contact-info { flex-direction: column; align-items: flex-start; gap: 12px; background: rgba(255,255,255,0.02); padding: 15px; border-radius: 12px; }
+            .contact-info a { font-size: 0.85rem; }
+            
+            /* Grid */
+            .section { padding: 50px 5%; }
+            .section-title { font-size: 1.8rem; margin-bottom: 25px; }
+            .bento-grid { gap: 15px; }
             .m-card { grid-column: span 12; }
-            h1 { font-size: 2.5rem; }
-            .nav-links { display: none; }
-            .section { padding: 60px 5%; }
-            .bento-card { padding: 25px; }
-            .role-container { flex-direction: column; align-items: center; }
-            .role-pill { width: 100%; text-align: center; }
+            .bento-card { padding: 20px; }
+            .m-card h3 { font-size: 2.5rem; }
+            
+            /* Content */
+            .about-text { font-size: 1rem; }
+            .exp-card h3 { font-size: 1.2rem; }
+            .proj-card h3 { font-size: 1.1rem; }
+            .proj-card p, .exp-card ul { font-size: 0.85rem; }
+            .skill-item { padding: 10px 14px; font-size: 0.8rem; }
+            .edu-item h4 { font-size: 0.95rem; }
+            
+            /* Modal */
+            .modal-box { padding: 25px 20px; }
+            .modal-box h3 { font-size: 1.3rem; }
         }
     </style>
 </head>
@@ -229,6 +268,7 @@
             <a href="#experience">Experience</a>
             <a href="#projects">Projects</a>
         </div>
+        <div class="menu-btn"><i class="fa-solid fa-bars"></i></div>
     </nav>
 
     <section class="hero">
@@ -237,7 +277,6 @@
             
             <h1>SONAL KUMAR</h1>
             
-            <!-- ROLES WITH ONCLICK FUNCTION -->
             <div class="role-container">
                 <div class="role-pill da" onclick="openModal('da')">Data Analyst</div>
                 <div class="role-pill pbi" onclick="openModal('pbi')">Power BI Specialist</div>
@@ -258,7 +297,7 @@
         </div>
     </section>
 
-    <!-- MODAL POPUP (HIDDEN BY DEFAULT) -->
+    <!-- MODAL POPUP -->
     <div class="modal-overlay" id="roleModal">
         <div class="modal-box" id="modalBox">
             <i class="fa-solid fa-xmark close-modal" onclick="closeModal()"></i>
@@ -345,7 +384,7 @@
         <div class="bento-grid">
             <div class="bento-card skills-card tilt-card">
                 <div class="bento-content">
-                    <h2 class="section-title" style="font-size: 1.8rem; margin-bottom: 15px;">Tech Stack</h2>
+                    <h2 class="section-title" style="font-size: 1.6rem; margin-bottom: 15px;">Tech Stack</h2>
                     <div class="skill-tags">
                         <div class="skill-item"><i class="fa-solid fa-file-excel" style="color: #21A366;"></i> Advanced Excel</div>
                         <div class="skill-item"><img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg"> Power BI</div>
@@ -362,7 +401,7 @@
 
             <div class="bento-card edu-card tilt-card">
                 <div class="bento-content">
-                    <h2 class="section-title" style="font-size: 1.8rem; margin-bottom: 15px;">Education</h2>
+                    <h2 class="section-title" style="font-size: 1.6rem; margin-bottom: 15px;">Education</h2>
                     <a href="https://drive.google.com/file/d/1eA2t0h-h-9ODgTTiHDFh8yOrlIp4Wvc2/preview" target="_blank" class="edu-item">
                         <h4>Data Analyst Certification <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.9rem; color: var(--sql-blue);"></i></h4>
                         <p>Ducat IT Training | Power BI, SQL</p>
@@ -385,6 +424,9 @@
     </section>
 
     <script>
+        // --- CHECK FOR TOUCH DEVICE (Disable heavy JS on mobile for smoothness) ---
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
         // --- MODAL DATA & LOGIC ---
         const modalData = {
             'da': {
@@ -424,7 +466,6 @@
             const modalBox = document.getElementById('modalBox');
             const modalOverlay = document.getElementById('roleModal');
             
-            // Set Content
             document.getElementById('modalTitle').innerText = data.title;
             document.getElementById('modalDesc').innerText = data.desc;
             
@@ -436,8 +477,7 @@
                 ul.appendChild(li);
             });
 
-            // Set Glow Class
-            modalBox.className = 'modal-box'; // Reset
+            modalBox.className = 'modal-box';
             if(type === 'da') modalBox.classList.add('modal-da');
             if(type === 'pbi') modalBox.classList.add('modal-pbi');
             if(type === 'mis') modalBox.classList.add('modal-mis');
@@ -449,64 +489,66 @@
             document.getElementById('roleModal').classList.remove('active');
         }
 
-        // Close modal on clicking outside the box
         document.getElementById('roleModal').addEventListener('click', function(e) {
             if(e.target === this) closeModal();
         });
 
-        // 1. MAGNETIC BUTTONS
-        const magneticBtns = document.querySelectorAll('.magnetic');
-        magneticBtns.forEach(btn => {
-            btn.addEventListener('mousemove', (e) => {
-                const rect = btn.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+        // --- EFFECTS ONLY FOR DESKTOP ---
+        if(!isTouchDevice) {
+            // 1. MAGNETIC BUTTONS
+            const magneticBtns = document.querySelectorAll('.magnetic');
+            magneticBtns.forEach(btn => {
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+                });
+                btn.addEventListener('mouseleave', () => {
+                    btn.style.transform = `translate(0px, 0px)`;
+                });
             });
-            btn.addEventListener('mouseleave', () => {
-                btn.style.transform = `translate(0px, 0px)`;
-            });
-        });
 
-        // 2. HERO SPOTLIGHT
-        const heroCard = document.getElementById('hero-card');
-        heroCard.addEventListener('mousemove', e => {
-            const rect = heroCard.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            heroCard.style.setProperty('--mouse-x', `${x}px`);
-            heroCard.style.setProperty('--mouse-y', `${y}px`);
-        });
-
-        // 3. 3D TILT EFFECT
-        const tiltCards = document.querySelectorAll('.tilt-card');
-        tiltCards.forEach(card => {
-            let rect;
-            card.addEventListener('mouseenter', () => { rect = card.getBoundingClientRect(); });
-            card.addEventListener('mousemove', e => {
-                if (!rect) return;
+            // 2. HERO SPOTLIGHT
+            const heroCard = document.getElementById('hero-card');
+            heroCard.addEventListener('mousemove', e => {
+                const rect = heroCard.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                const rotateX = ((y - centerY) / centerY) * -8;
-                const rotateY = ((x - centerX) / centerX) * 8;
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+                heroCard.style.setProperty('--mouse-x', `${x}px`);
+                heroCard.style.setProperty('--mouse-y', `${y}px`);
             });
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)`;
-                rect = null;
-            });
-        });
 
-        // 4. SCROLL REVEAL
+            // 3. 3D TILT EFFECT
+            const tiltCards = document.querySelectorAll('.tilt-card');
+            tiltCards.forEach(card => {
+                let rect;
+                card.addEventListener('mouseenter', () => { rect = card.getBoundingClientRect(); });
+                card.addEventListener('mousemove', e => {
+                    if (!rect) return;
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / centerY) * -8;
+                    const rotateY = ((x - centerX) / centerX) * 8;
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)`;
+                    rect = null;
+                });
+            });
+        }
+
+        // --- SCROLL REVEAL (Both Desktop & Mobile) ---
         const reveals = document.querySelectorAll(".reveal");
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add("active"); });
         }, { threshold: 0.15 });
         reveals.forEach(reveal => revealObserver.observe(reveal));
 
-        // 5. LOOPING TYPEWRITER ANIMATION
+        // --- LOOPING TYPEWRITER ANIMATION ---
         const aboutSection = document.getElementById('about');
         const target = document.getElementById('typewriter-text');
         const text = "I am a detail-oriented Data Analyst with a strong foundation in Physics and 1 year of hands-on experience in transforming complex, multi-channel operational data into actionable business insights. I specialize in Power BI, Advanced Excel, and SQL, with a proven track record of automating reporting processes and saving over 35% of manual effort.";
