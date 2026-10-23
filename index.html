@@ -39,12 +39,10 @@
         }
         .logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; color: #fff; letter-spacing: 1px; }
         
-        /* Desktop Nav */
         .nav-links { display: flex; gap: 30px; }
         .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: 0.3s; }
         .nav-links a:hover { color: var(--sql-blue); text-shadow: 0 0 10px rgba(96, 165, 250, 0.5); }
 
-        /* Mobile Menu Icon */
         .menu-btn { display: none; font-size: 1.5rem; color: #fff; cursor: pointer; }
 
         /* HERO SECTION */
@@ -152,14 +150,31 @@
 
         /* Skills & Edu */
         .skills-card, .edu-card { grid-column: span 6; }
-        .skill-tags { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
-        .skill-item { 
-            display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.03); 
-            padding: 12px 18px; border-radius: 12px; border: 1px solid var(--border); font-size: 0.9rem; font-weight: 600; transition: 0.3s; cursor: pointer;
-        }
-        .skill-item:hover { background: rgba(96, 165, 250, 0.1); border-color: var(--sql-blue); transform: translateY(-3px); }
-        .skill-item img { width: 20px; height: 20px; }
         
+        /* --- NEW ADVANCED SKILL CARDS --- */
+        .skill-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 15px; }
+        .skill-box { 
+            background: rgba(255,255,255,0.02); padding: 15px; border-radius: 12px; 
+            border: 1px solid var(--border); transition: 0.3s;
+        }
+        .skill-box:hover {
+            background: rgba(96, 165, 250, 0.05); border-color: var(--sql-blue); transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(96, 165, 250, 0.1);
+        }
+        .skill-header { display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 0.95rem; margin-bottom: 5px; }
+        .skill-name { display: flex; align-items: center; gap: 8px; }
+        .skill-name img { width: 20px; height: 20px; }
+        .skill-percent { color: var(--sql-blue); font-family: 'Syne', sans-serif; font-size: 1rem; }
+        .skill-desc { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px; }
+        .progress-bar { width: 100%; height: 6px; background: rgba(255, 255, 255, 0.1); border-radius: 3px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--sql-blue), #8b5cf6); border-radius: 3px; width: 0; transition: width 1.5s cubic-bezier(0.5, 0, 0, 1); }
+
+        /* Languages Box */
+        .lang-box { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+        .lang-item { background: rgba(255,255,255,0.03); padding: 10px 15px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.85rem; display: flex; align-items: center; gap: 8px; transition: 0.3s; }
+        .lang-item:hover { background: rgba(96, 165, 250, 0.1); border-color: var(--sql-blue); transform: translateY(-2px); }
+
+        /* Education */
         .edu-item { display: block; text-decoration: none; padding: 15px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 12px; transition: 0.3s; background: rgba(255,255,255,0.02); cursor: pointer; }
         .edu-item:hover { background: rgba(96, 165, 250, 0.08); border-color: var(--sql-blue); transform: translateX(5px); }
         .edu-item h4 { color: #fff; font-size: 1rem; margin-bottom: 5px; display: flex; justify-content: space-between; }
@@ -219,7 +234,7 @@
         @media (max-width: 768px) {
             /* Navbar */
             nav { padding: 15px 5%; }
-            .nav-links { display: none; } /* Hide desktop links */
+            .nav-links { display: none; }
             .menu-btn { display: block; }
             
             /* Hero Section */
@@ -250,8 +265,10 @@
             .exp-card h3 { font-size: 1.2rem; }
             .proj-card h3 { font-size: 1.1rem; }
             .proj-card p, .exp-card ul { font-size: 0.85rem; }
-            .skill-item { padding: 10px 14px; font-size: 0.8rem; }
-            .edu-item h4 { font-size: 0.95rem; }
+            
+            /* Skill Cards Mobile */
+            .skill-header { font-size: 0.9rem; }
+            .skill-desc { font-size: 0.75rem; }
             
             /* Modal */
             .modal-box { padding: 25px 20px; }
@@ -297,7 +314,6 @@
         </div>
     </section>
 
-    <!-- MODAL POPUP -->
     <div class="modal-overlay" id="roleModal">
         <div class="modal-box" id="modalBox">
             <i class="fa-solid fa-xmark close-modal" onclick="closeModal()"></i>
@@ -382,23 +398,84 @@
 
     <section id="education" class="section reveal">
         <div class="bento-grid">
+            <!-- NEW ADVANCED SKILLS SECTION -->
             <div class="bento-card skills-card tilt-card">
                 <div class="bento-content">
                     <h2 class="section-title" style="font-size: 1.6rem; margin-bottom: 15px;">Tech Stack</h2>
-                    <div class="skill-tags">
-                        <div class="skill-item"><i class="fa-solid fa-file-excel" style="color: #21A366;"></i> Advanced Excel</div>
-                        <div class="skill-item"><img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg"> Power BI</div>
-                        <div class="skill-item"><i class="fa-solid fa-code" style="color: #F2C811;"></i> DAX</div>
-                        <div class="skill-item"><i class="fa-solid fa-database" style="color: #60a5fa;"></i> SQL</div>
-                        <div class="skill-item"><i class="fa-solid fa-filter" style="color: #F2C811;"></i> Power Query</div>
-                        <div class="skill-item"><i class="fa-solid fa-table" style="color: #E6E6E6;"></i> MIS Reporting</div>
-                        <div class="skill-item">🇬🇧 English</div>
-                        <div class="skill-item">🇮🇳 Hindi</div>
-                        <div class="skill-item">🇯🇵 Japanese</div>
+                    
+                    <div class="skill-grid">
+                        <!-- Excel -->
+                        <div class="skill-box">
+                            <div class="skill-header">
+                                <span class="skill-name"><i class="fa-solid fa-file-excel" style="color: #21A366;"></i> Advanced Excel</span>
+                                <span class="skill-percent">90%</span>
+                            </div>
+                            <div class="skill-desc">XLOOKUP, Pivot Tables, Automation</div>
+                            <div class="progress-bar"><div class="progress-fill" data-width="90%"></div></div>
+                        </div>
+                        
+                        <!-- Power BI -->
+                        <div class="skill-box">
+                            <div class="skill-header">
+                                <span class="skill-name"><img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg"> Power BI</span>
+                                <span class="skill-percent">95%</span>
+                            </div>
+                            <div class="skill-desc">Dashboards, KPI Tracking</div>
+                            <div class="progress-bar"><div class="progress-fill" data-width="95%"></div></div>
+                        </div>
+
+                        <!-- SQL -->
+                        <div class="skill-box">
+                            <div class="skill-header">
+                                <span class="skill-name"><i class="fa-solid fa-database" style="color: var(--sql-blue);"></i> SQL</span>
+                                <span class="skill-percent">80%</span>
+                            </div>
+                            <div class="skill-desc">Queries, Joins, Data Extraction</div>
+                            <div class="progress-bar"><div class="progress-fill" data-width="80%"></div></div>
+                        </div>
+
+                        <!-- DAX -->
+                        <div class="skill-box">
+                            <div class="skill-header">
+                                <span class="skill-name"><i class="fa-solid fa-code" style="color: var(--bi-yellow);"></i> DAX</span>
+                                <span class="skill-percent">85%</span>
+                            </div>
+                            <div class="skill-desc">Time Intelligence, Custom Measures</div>
+                            <div class="progress-bar"><div class="progress-fill" data-width="85%"></div></div>
+                        </div>
+
+                        <!-- Power Query -->
+                        <div class="skill-box">
+                            <div class="skill-header">
+                                <span class="skill-name"><i class="fa-solid fa-filter" style="color: var(--bi-yellow);"></i> Power Query</span>
+                                <span class="skill-percent">85%</span>
+                            </div>
+                            <div class="skill-desc">Data Cleaning, ETL</div>
+                            <div class="progress-bar"><div class="progress-fill" data-width="85%"></div></div>
+                        </div>
+
+                        <!-- MIS -->
+                        <div class="skill-box">
+                            <div class="skill-header">
+                                <span class="skill-name"><i class="fa-solid fa-table" style="color: #E6E6E6;"></i> MIS Reporting</span>
+                                <span class="skill-percent">95%</span>
+                            </div>
+                            <div class="skill-desc">Daily Reporting, Reconciliation</div>
+                            <div class="progress-bar"><div class="progress-fill" data-width="95%"></div></div>
+                        </div>
+                    </div>
+
+                    <!-- Languages -->
+                    <h4 style="margin-top: 25px; margin-bottom: 10px; color: var(--text-main); font-size: 1rem;">Languages</h4>
+                    <div class="lang-box">
+                        <div class="lang-item">🇬🇧 English</div>
+                        <div class="lang-item">🇮🇳 Hindi</div>
+                        <div class="lang-item">🇯🇵 Japanese</div>
                     </div>
                 </div>
             </div>
 
+            <!-- EDUCATION SECTION -->
             <div class="bento-card edu-card tilt-card">
                 <div class="bento-content">
                     <h2 class="section-title" style="font-size: 1.6rem; margin-bottom: 15px;">Education</h2>
@@ -424,7 +501,7 @@
     </section>
 
     <script>
-        // --- CHECK FOR TOUCH DEVICE (Disable heavy JS on mobile for smoothness) ---
+        // --- CHECK FOR TOUCH DEVICE ---
         const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
         // --- MODAL DATA & LOGIC ---
@@ -495,7 +572,6 @@
 
         // --- EFFECTS ONLY FOR DESKTOP ---
         if(!isTouchDevice) {
-            // 1. MAGNETIC BUTTONS
             const magneticBtns = document.querySelectorAll('.magnetic');
             magneticBtns.forEach(btn => {
                 btn.addEventListener('mousemove', (e) => {
@@ -504,12 +580,9 @@
                     const y = e.clientY - rect.top - rect.height / 2;
                     btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
                 });
-                btn.addEventListener('mouseleave', () => {
-                    btn.style.transform = `translate(0px, 0px)`;
-                });
+                btn.addEventListener('mouseleave', () => { btn.style.transform = `translate(0px, 0px)`; });
             });
 
-            // 2. HERO SPOTLIGHT
             const heroCard = document.getElementById('hero-card');
             heroCard.addEventListener('mousemove', e => {
                 const rect = heroCard.getBoundingClientRect();
@@ -519,7 +592,6 @@
                 heroCard.style.setProperty('--mouse-y', `${y}px`);
             });
 
-            // 3. 3D TILT EFFECT
             const tiltCards = document.querySelectorAll('.tilt-card');
             tiltCards.forEach(card => {
                 let rect;
@@ -541,10 +613,20 @@
             });
         }
 
-        // --- SCROLL REVEAL (Both Desktop & Mobile) ---
+        // --- SCROLL REVEAL & PROGRESS BAR ANIMATION ---
         const reveals = document.querySelectorAll(".reveal");
         const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add("active"); });
+            entries.forEach(entry => { 
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("active");
+                    
+                    // Animate progress bars inside this section
+                    const bars = entry.target.querySelectorAll('.progress-fill');
+                    bars.forEach(bar => {
+                        bar.style.width = bar.getAttribute('data-width');
+                    });
+                }
+            });
         }, { threshold: 0.15 });
         reveals.forEach(reveal => revealObserver.observe(reveal));
 
