@@ -22,6 +22,12 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* --- 1. CUSTOM SCROLLBAR --- */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--sql-blue); border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
         
         body {
             background-color: var(--bg); color: var(--text-main);
@@ -44,6 +50,17 @@
         .nav-links a:hover { color: var(--sql-blue); text-shadow: 0 0 10px rgba(96, 165, 250, 0.5); }
 
         .menu-btn { display: none; font-size: 1.5rem; color: #fff; cursor: pointer; }
+
+        /* --- 2. MOBILE MENU --- */
+        .mobile-menu {
+            position: fixed; top: 65px; left: 0; width: 100%; 
+            background: rgba(6, 7, 10, 0.95); backdrop-filter: blur(20px);
+            display: flex; flex-direction: column; align-items: center; padding: 20px 0; gap: 20px;
+            border-bottom: 1px solid var(--border); z-index: 99;
+            transform: translateY(-150%); transition: transform 0.4s ease;
+        }
+        .mobile-menu.active { transform: translateY(0); }
+        .mobile-menu a { color: var(--text-main); text-decoration: none; font-weight: 600; font-size: 1rem; }
 
         /* HERO SECTION */
         .hero {
@@ -78,21 +95,19 @@
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
 
-        /* ROLES MOTION & CLICK EFFECT */
+        /* ROLES */
         .role-container { display: flex; justify-content: center; gap: 12px; margin-bottom: 25px; flex-wrap: wrap; }
         .role-pill {
-            display: inline-block; 
-            font-size: 0.95rem; font-weight: 600; padding: 8px 16px; border-radius: 50px;
+            display: inline-block; font-size: 0.95rem; font-weight: 600; padding: 8px 16px; border-radius: 50px;
             border: 1px solid var(--border); background: rgba(255,255,255,0.03);
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer;
         }
         .role-pill:hover { transform: translateY(-3px) scale(1.05); }
-        
         .role-pill.da:hover { color: #fff; background: var(--sql-blue); border-color: var(--sql-blue); box-shadow: 0 10px 25px rgba(96, 165, 250, 0.4); }
         .role-pill.pbi:hover { color: #000; background: var(--bi-yellow); border-color: var(--bi-yellow); box-shadow: 0 10px 25px rgba(242, 200, 17, 0.4); }
         .role-pill.mis:hover { color: #fff; background: var(--excel-green); border-color: var(--excel-green); box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4); }
 
-        /* MAGNETIC BUTTONS */
+        /* BUTTONS */
         .hero-btns { display: flex; gap: 12px; justify-content: center; margin-bottom: 25px; flex-wrap: wrap; }
         .btn {
             padding: 12px 28px; font-size: 0.9rem; font-weight: 700; border-radius: 50px;
@@ -134,33 +149,40 @@
         .about-text { font-size: 1.05rem; color: var(--text-muted); line-height: 1.8; min-height: 120px; }
         .type-cursor { color: var(--sql-blue); animation: blink 0.8s infinite; }
 
-        /* Experience */
-        .exp-card { grid-column: span 6; }
-        .exp-card h3 { font-family: 'Syne', sans-serif; font-size: 1.3rem; color: #fff; margin-bottom: 5px; }
-        .exp-card h4 { color: var(--sql-blue); font-size: 0.95rem; margin-bottom: 15px; font-weight: 600; }
-        .exp-card ul { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; padding-left: 18px; }
-        .exp-card ul li { margin-bottom: 10px; }
+        /* --- 3. EXPERIENCE TIMELINE --- */
+        .exp-section { grid-column: span 12; }
+        .timeline { position: relative; border-left: 2px solid var(--border); padding-left: 30px; margin-left: 10px; }
+        .timeline-item { position: relative; margin-bottom: 30px; }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -39px; top: 5px; width: 16px; height: 16px;
+            background: var(--sql-blue); border-radius: 50%; box-shadow: 0 0 15px var(--sql-blue);
+            border: 3px solid var(--bg); transition: 0.3s;
+        }
+        .timeline-item:hover::before { background: var(--excel-green); box-shadow: 0 0 15px var(--excel-green); }
+        .timeline-item h3 { font-family: 'Syne', sans-serif; font-size: 1.3rem; color: #fff; margin-bottom: 5px; }
+        .timeline-item h4 { color: var(--sql-blue); font-size: 0.95rem; margin-bottom: 15px; font-weight: 600; }
+        .timeline-item ul { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; padding-left: 18px; }
+        .timeline-item ul li { margin-bottom: 10px; }
 
-        /* Projects */
+        /* --- 4. PROJECTS WITH VIEW BUTTON --- */
         .proj-card { grid-column: span 4; display: flex; flex-direction: column; justify-content: space-between; }
         .proj-card h3 { font-family: 'Syne', sans-serif; font-size: 1.2rem; color: #fff; margin-bottom: 12px; }
-        .proj-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 20px; }
-        .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+        .proj-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 15px; }
+        .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 15px; }
         .tag { background: rgba(96, 165, 250, 0.1); color: var(--sql-blue); padding: 5px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; border: 1px solid rgba(96, 165, 250, 0.2); }
+        
+        .btn-view { 
+            display: inline-flex; align-items: center; gap: 8px; background: rgba(96, 165, 250, 0.1); 
+            color: var(--sql-blue); padding: 8px 16px; border-radius: 8px; text-decoration: none; 
+            font-size: 0.85rem; font-weight: 600; transition: 0.3s; border: 1px solid rgba(96, 165, 250, 0.2);
+        }
+        .btn-view:hover { background: var(--sql-blue); color: #fff; transform: translateX(5px); }
 
         /* Skills & Edu */
         .skills-card, .edu-card { grid-column: span 6; }
-        
-        /* --- NEW ADVANCED SKILL CARDS --- */
         .skill-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 15px; }
-        .skill-box { 
-            background: rgba(255,255,255,0.02); padding: 15px; border-radius: 12px; 
-            border: 1px solid var(--border); transition: 0.3s;
-        }
-        .skill-box:hover {
-            background: rgba(96, 165, 250, 0.05); border-color: var(--sql-blue); transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(96, 165, 250, 0.1);
-        }
+        .skill-box { background: rgba(255,255,255,0.02); padding: 15px; border-radius: 12px; border: 1px solid var(--border); transition: 0.3s; }
+        .skill-box:hover { background: rgba(96, 165, 250, 0.05); border-color: var(--sql-blue); transform: translateY(-3px); }
         .skill-header { display: flex; justify-content: space-between; align-items: center; font-weight: 600; font-size: 0.95rem; margin-bottom: 5px; }
         .skill-name { display: flex; align-items: center; gap: 8px; }
         .skill-name img { width: 20px; height: 20px; }
@@ -169,27 +191,23 @@
         .progress-bar { width: 100%; height: 6px; background: rgba(255, 255, 255, 0.1); border-radius: 3px; overflow: hidden; }
         .progress-fill { height: 100%; background: linear-gradient(90deg, var(--sql-blue), #8b5cf6); border-radius: 3px; width: 0; transition: width 1.5s cubic-bezier(0.5, 0, 0, 1); }
 
-        /* Languages Box */
         .lang-box { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
         .lang-item { background: rgba(255,255,255,0.03); padding: 10px 15px; border-radius: 8px; border: 1px solid var(--border); font-size: 0.85rem; display: flex; align-items: center; gap: 8px; transition: 0.3s; }
         .lang-item:hover { background: rgba(96, 165, 250, 0.1); border-color: var(--sql-blue); transform: translateY(-2px); }
 
-        /* Education */
         .edu-item { display: block; text-decoration: none; padding: 15px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 12px; transition: 0.3s; background: rgba(255,255,255,0.02); cursor: pointer; }
         .edu-item:hover { background: rgba(96, 165, 250, 0.08); border-color: var(--sql-blue); transform: translateX(5px); }
         .edu-item h4 { color: #fff; font-size: 1rem; margin-bottom: 5px; display: flex; justify-content: space-between; }
         .edu-item p { color: var(--text-muted); font-size: 0.85rem; }
 
-        /* --- MODAL POPUP CSS --- */
+        /* --- MODAL POPUP --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px);
             display: flex; justify-content: center; align-items: center;
-            opacity: 0; pointer-events: none; transition: opacity 0.3s ease; z-index: 9999;
-            padding: 20px;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s ease; z-index: 9999; padding: 20px;
         }
         .modal-overlay.active { opacity: 1; pointer-events: all; }
-        
         .modal-box {
             background: #0d1117; border: 1px solid var(--sql-blue); border-radius: 20px;
             padding: 30px; max-width: 500px; width: 100%; position: relative;
@@ -197,24 +215,38 @@
             box-shadow: 0 0 50px rgba(96, 165, 250, 0.2);
         }
         .modal-overlay.active .modal-box { transform: translateY(0) scale(1); }
-        
-        .close-modal {
-            position: absolute; top: 15px; right: 20px; font-size: 1.5rem;
-            color: var(--text-muted); cursor: pointer; transition: 0.3s;
-        }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; color: var(--text-muted); cursor: pointer; transition: 0.3s; }
         .close-modal:hover { color: #fff; transform: rotate(90deg); }
-        
         .modal-box h3 { font-family: 'Syne', sans-serif; font-size: 1.5rem; margin-bottom: 10px; }
         .modal-box p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 15px; }
         .modal-box ul { color: var(--text-main); font-size: 0.9rem; padding-left: 20px; line-height: 1.7; }
 
-        /* Dynamic Glow Classes for Modal */
         .modal-da .modal-box { border-color: var(--sql-blue); box-shadow: 0 0 50px rgba(96, 165, 250, 0.2); }
         .modal-da h3 { color: var(--sql-blue); }
         .modal-pbi .modal-box { border-color: var(--bi-yellow); box-shadow: 0 0 50px rgba(242, 200, 17, 0.2); }
         .modal-pbi h3 { color: var(--bi-yellow); }
         .modal-mis .modal-box { border-color: var(--excel-green); box-shadow: 0 0 50px rgba(16, 185, 129, 0.2); }
         .modal-mis h3 { color: var(--excel-green); }
+
+        /* --- 5. COPY EMAIL TOAST --- */
+        .toast {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px);
+            background: var(--excel-green); color: white; padding: 12px 24px; border-radius: 50px;
+            font-weight: 600; font-size: 0.9rem; opacity: 0; transition: 0.4s cubic-bezier(0.5, 0, 0, 1);
+            z-index: 10000; box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+        /* --- 6. SCROLL TO TOP BUTTON --- */
+        .scroll-top {
+            position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px;
+            border-radius: 50%; background: var(--sql-blue); color: #fff; border: none;
+            cursor: pointer; display: flex; justify-content: center; align-items: center;
+            font-size: 1.2rem; opacity: 0; visibility: hidden; transition: 0.3s;
+            z-index: 999; box-shadow: 0 10px 20px rgba(96, 165, 250, 0.4);
+        }
+        .scroll-top.active { opacity: 1; visibility: visible; }
+        .scroll-top:hover { transform: translateY(-5px); background: #3b82f6; }
 
         /* Animations */
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
@@ -223,36 +255,30 @@
         .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* --- RESPONSIVE DESIGN (TABLET & MOBILE) --- */
+        /* RESPONSIVE */
         @media (max-width: 1024px) {
             .m-card { grid-column: span 6; }
-            .exp-card, .proj-card, .skills-card, .edu-card { grid-column: span 12; }
+            .proj-card, .skills-card, .edu-card { grid-column: span 12; }
             h1 { font-size: 3rem; }
             .section { padding: 60px 6%; }
         }
 
         @media (max-width: 768px) {
-            /* Navbar */
             nav { padding: 15px 5%; }
             .nav-links { display: none; }
             .menu-btn { display: block; }
             
-            /* Hero Section */
             .hero-card { padding: 30px 15px; border-radius: 16px; margin-top: 10px; }
             .profile-img { width: 120px; height: 120px; }
             h1 { font-size: 2.2rem; }
             .role-container { flex-direction: column; gap: 10px; }
             .role-pill { width: 100%; font-size: 0.9rem; padding: 12px; }
-            
-            /* Buttons */
             .hero-btns { flex-direction: column; width: 100%; gap: 10px; }
             .btn { width: 100%; padding: 14px; }
             
-            /* Contact */
             .contact-info { flex-direction: column; align-items: flex-start; gap: 12px; background: rgba(255,255,255,0.02); padding: 15px; border-radius: 12px; }
             .contact-info a { font-size: 0.85rem; }
             
-            /* Grid */
             .section { padding: 50px 5%; }
             .section-title { font-size: 1.8rem; margin-bottom: 25px; }
             .bento-grid { gap: 15px; }
@@ -260,23 +286,23 @@
             .bento-card { padding: 20px; }
             .m-card h3 { font-size: 2.5rem; }
             
-            /* Content */
             .about-text { font-size: 1rem; }
-            .exp-card h3 { font-size: 1.2rem; }
+            .timeline-item h3 { font-size: 1.2rem; }
             .proj-card h3 { font-size: 1.1rem; }
-            .proj-card p, .exp-card ul { font-size: 0.85rem; }
-            
-            /* Skill Cards Mobile */
+            .proj-card p, .timeline-item ul { font-size: 0.85rem; }
             .skill-header { font-size: 0.9rem; }
             .skill-desc { font-size: 0.75rem; }
             
-            /* Modal */
             .modal-box { padding: 25px 20px; }
             .modal-box h3 { font-size: 1.3rem; }
+            .scroll-top { bottom: 20px; right: 20px; width: 45px; height: 45px; }
         }
     </style>
 </head>
 <body>
+
+    <!-- TOAST NOTIFICATION -->
+    <div class="toast" id="toast">Email Copied to Clipboard! ✅</div>
 
     <nav>
         <div class="logo">SONAL.K</div>
@@ -285,8 +311,15 @@
             <a href="#experience">Experience</a>
             <a href="#projects">Projects</a>
         </div>
-        <div class="menu-btn"><i class="fa-solid fa-bars"></i></div>
+        <div class="menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></div>
     </nav>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#about" onclick="toggleMenu()">About</a>
+        <a href="#experience" onclick="toggleMenu()">Experience</a>
+        <a href="#projects" onclick="toggleMenu()">Projects</a>
+    </div>
 
     <section class="hero">
         <div class="hero-card" id="hero-card">
@@ -307,7 +340,8 @@
 
             <div class="contact-info">
                 <a href="https://www.google.com/maps/place/Noida,+Uttar+Pradesh" target="_blank"><i class="fa-solid fa-location-dot"></i> Noida, UP</a>
-                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sonalkumar660446@gmail.com" target="_blank"><i class="fa-solid fa-envelope"></i> sonalkumar660446@gmail.com</a>
+                <!-- COPY EMAIL ONCLICK -->
+                <a href="javascript:void(0)" onclick="copyEmail(event)"><i class="fa-solid fa-envelope"></i> sonalkumar660446@gmail.com</a>
                 <a href="tel:+918579932774"><i class="fa-solid fa-phone"></i> +91-8579932774</a>
                 <a href="https://wa.me/918579932774" target="_blank" style="color: #25D366;"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
             </div>
@@ -341,34 +375,36 @@
         </div>
     </section>
 
+    <!-- EXPERIENCE TIMELINE -->
     <section id="experience" class="section reveal">
         <h2 class="section-title">Experience</h2>
         <div class="bento-grid">
-            <div class="bento-card exp-card tilt-card">
-                <div class="bento-content">
-                    <h3>MIS Executive</h3>
-                    <h4>Divine Trends Light Manufacturers</h4>
-                    <ul>
-                        <li>Automated daily, weekly, and monthly MIS reports using Advanced Excel to track sales orders and operational KPIs.</li>
-                        <li>Processed daily order entries, stock movements, and operational records across multi-channel sales systems.</li>
-                        <li>Conducted daily data verification and reconciliation checks to eliminate discrepancies.</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="bento-card exp-card tilt-card">
-                <div class="bento-content">
-                    <h3>Data Entry & MIS Assistant</h3>
-                    <h4>Dal Mill Industry</h4>
-                    <ul>
-                        <li>Managed daily inventory records and prepared production reports using Excel-based automation.</li>
-                        <li>Recorded daily stock movements, production outputs, and warehouse transactions with 100% accuracy.</li>
-                        <li>Prepared weekly inventory reconciliation and production performance reports.</li>
-                    </ul>
+            <div class="bento-card exp-section tilt-card">
+                <div class="bento-content timeline">
+                    <div class="timeline-item">
+                        <h3>MIS Executive</h3>
+                        <h4>Divine Trends Light Manufacturers</h4>
+                        <ul>
+                            <li>Automated daily, weekly, and monthly MIS reports using Advanced Excel to track sales orders and operational KPIs.</li>
+                            <li>Processed daily order entries, stock movements, and operational records across multi-channel sales systems.</li>
+                            <li>Conducted daily data verification and reconciliation checks to eliminate discrepancies.</li>
+                        </ul>
+                    </div>
+                    <div class="timeline-item" style="margin-bottom: 0;">
+                        <h3>Data Entry & MIS Assistant</h3>
+                        <h4>Dal Mill Industry</h4>
+                        <ul>
+                            <li>Managed daily inventory records and prepared production reports using Excel-based automation.</li>
+                            <li>Recorded daily stock movements, production outputs, and warehouse transactions with 100% accuracy.</li>
+                            <li>Prepared weekly inventory reconciliation and production performance reports.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- PROJECTS WITH VIEW BUTTON -->
     <section id="projects" class="section reveal">
         <h2 class="section-title">Key Projects</h2>
         <div class="bento-grid">
@@ -376,35 +412,38 @@
                 <div class="bento-content">
                     <h3>Sales Performance Dashboard</h3>
                     <p>Cleaned and transformed 50,000+ raw sales records using Power Query. Developed custom DAX measures for key metrics. Designed interactive KPI dashboards.</p>
+                    <div class="tags"><span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">Power Query</span></div>
                 </div>
-                <div class="tags"><span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">Power Query</span></div>
+                <!-- DUMMY LINK: Yahan apna project link daalein -->
+                <a href="#" class="btn-view">View Dashboard <i class="fa-solid fa-arrow-right"></i></a>
             </div>
             <div class="bento-card proj-card tilt-card">
                 <div class="bento-content">
                     <h3>Customer Complaint Analytics</h3>
                     <p>Built an interactive dashboard to monitor complaint volumes and resolution trends. Created DAX-based KPI measures to track service-level performance.</p>
+                    <div class="tags"><span class="tag">Power BI</span><span class="tag">Data Viz</span></div>
                 </div>
-                <div class="tags"><span class="tag">Power BI</span><span class="tag">Data Viz</span></div>
+                <!-- DUMMY LINK: Yahan apna project link daalein -->
+                <a href="#" class="btn-view">View Dashboard <i class="fa-solid fa-arrow-right"></i></a>
             </div>
             <div class="bento-card proj-card tilt-card">
                 <div class="bento-content">
                     <h3>Amazon Returns Tracker</h3>
                     <p>Analyzed returns and SKU performance across 10,000+ transactions. Developed automated Pivot Table-based MIS reports using XLOOKUP.</p>
+                    <div class="tags"><span class="tag">Advanced Excel</span><span class="tag">MIS</span></div>
                 </div>
-                <div class="tags"><span class="tag">Advanced Excel</span><span class="tag">MIS</span></div>
+                <!-- DUMMY LINK: Yahan apna project link daalein -->
+                <a href="#" class="btn-view">View Dashboard <i class="fa-solid fa-arrow-right"></i></a>
             </div>
         </div>
     </section>
 
     <section id="education" class="section reveal">
         <div class="bento-grid">
-            <!-- NEW ADVANCED SKILLS SECTION -->
             <div class="bento-card skills-card tilt-card">
                 <div class="bento-content">
                     <h2 class="section-title" style="font-size: 1.6rem; margin-bottom: 15px;">Tech Stack</h2>
-                    
                     <div class="skill-grid">
-                        <!-- Excel -->
                         <div class="skill-box">
                             <div class="skill-header">
                                 <span class="skill-name"><i class="fa-solid fa-file-excel" style="color: #21A366;"></i> Advanced Excel</span>
@@ -413,8 +452,6 @@
                             <div class="skill-desc">XLOOKUP, Pivot Tables, Automation</div>
                             <div class="progress-bar"><div class="progress-fill" data-width="90%"></div></div>
                         </div>
-                        
-                        <!-- Power BI -->
                         <div class="skill-box">
                             <div class="skill-header">
                                 <span class="skill-name"><img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/New_Power_BI_Logo.svg"> Power BI</span>
@@ -423,8 +460,6 @@
                             <div class="skill-desc">Dashboards, KPI Tracking</div>
                             <div class="progress-bar"><div class="progress-fill" data-width="95%"></div></div>
                         </div>
-
-                        <!-- SQL -->
                         <div class="skill-box">
                             <div class="skill-header">
                                 <span class="skill-name"><i class="fa-solid fa-database" style="color: var(--sql-blue);"></i> SQL</span>
@@ -433,8 +468,6 @@
                             <div class="skill-desc">Queries, Joins, Data Extraction</div>
                             <div class="progress-bar"><div class="progress-fill" data-width="80%"></div></div>
                         </div>
-
-                        <!-- DAX -->
                         <div class="skill-box">
                             <div class="skill-header">
                                 <span class="skill-name"><i class="fa-solid fa-code" style="color: var(--bi-yellow);"></i> DAX</span>
@@ -443,8 +476,6 @@
                             <div class="skill-desc">Time Intelligence, Custom Measures</div>
                             <div class="progress-bar"><div class="progress-fill" data-width="85%"></div></div>
                         </div>
-
-                        <!-- Power Query -->
                         <div class="skill-box">
                             <div class="skill-header">
                                 <span class="skill-name"><i class="fa-solid fa-filter" style="color: var(--bi-yellow);"></i> Power Query</span>
@@ -453,8 +484,6 @@
                             <div class="skill-desc">Data Cleaning, ETL</div>
                             <div class="progress-bar"><div class="progress-fill" data-width="85%"></div></div>
                         </div>
-
-                        <!-- MIS -->
                         <div class="skill-box">
                             <div class="skill-header">
                                 <span class="skill-name"><i class="fa-solid fa-table" style="color: #E6E6E6;"></i> MIS Reporting</span>
@@ -465,7 +494,6 @@
                         </div>
                     </div>
 
-                    <!-- Languages -->
                     <h4 style="margin-top: 25px; margin-bottom: 10px; color: var(--text-main); font-size: 1rem;">Languages</h4>
                     <div class="lang-box">
                         <div class="lang-item">🇬🇧 English</div>
@@ -475,7 +503,6 @@
                 </div>
             </div>
 
-            <!-- EDUCATION SECTION -->
             <div class="bento-card edu-card tilt-card">
                 <div class="bento-content">
                     <h2 class="section-title" style="font-size: 1.6rem; margin-bottom: 15px;">Education</h2>
@@ -500,41 +527,57 @@
         </div>
     </section>
 
+    <!-- SCROLL TO TOP BUTTON -->
+    <button id="scrollTop" class="scroll-top"><i class="fa-solid fa-arrow-up"></i></button>
+
     <script>
-        // --- CHECK FOR TOUCH DEVICE ---
         const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-        // --- MODAL DATA & LOGIC ---
+        // --- 1. COPY EMAIL LOGIC ---
+        function copyEmail(event) {
+            event.preventDefault();
+            const email = "sonalkumar660446@gmail.com";
+            navigator.clipboard.writeText(email).then(() => {
+                const toast = document.getElementById('toast');
+                toast.classList.add('show');
+                setTimeout(() => { toast.classList.remove('show'); }, 3000);
+            });
+        }
+
+        // --- 2. MOBILE MENU ---
+        function toggleMenu() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+        }
+
+        // --- 3. SCROLL TO TOP LOGIC ---
+        const scrollTopBtn = document.getElementById('scrollTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollTopBtn.classList.add('active');
+            } else {
+                scrollTopBtn.classList.remove('active');
+            }
+        });
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // --- 4. MODAL LOGIC ---
         const modalData = {
             'da': {
                 title: 'Aspiring Data Analyst',
                 desc: 'Equipped with a strong foundation in data analytics, I focus on extracting actionable insights from raw datasets and bridging the gap between technical analysis and business strategy.',
-                points: [
-                    'Exploratory Data Analysis (EDA) & Trend Identification',
-                    'Data Cleaning & Preparation (100% accuracy)',
-                    'SQL Querying & Database Management',
-                    'Translating complex data into actionable reports'
-                ]
+                points: ['Exploratory Data Analysis (EDA) & Trend Identification', 'Data Cleaning & Preparation (100% accuracy)', 'SQL Querying & Database Management', 'Translating complex data into actionable reports']
             },
             'pbi': {
                 title: 'Interactive Dashboard Developer',
                 desc: 'I transform raw operational data into visually compelling, interactive dashboards that drive decision-making and track live KPIs.',
-                points: [
-                    'Data Modeling & Creating Star Schemas',
-                    'DAX Mastery (Time Intelligence, MoM growth)',
-                    'Power Query Automation & Data Transformation',
-                    'Designing clean, executive-ready UI/UX reports'
-                ]
+                points: ['Data Modeling & Creating Star Schemas', 'DAX Mastery (Time Intelligence, MoM growth)', 'Power Query Automation & Data Transformation', 'Designing clean, executive-ready UI/UX reports']
             },
             'mis': {
                 title: 'Operations & Reporting Specialist',
                 desc: 'With 1 year of hands-on experience, I manage daily operations data, automate reporting processes, and ensure 100% accuracy to support management decisions.',
-                points: [
-                    'Advanced Excel (XLOOKUP, Pivot Tables, Automation)',
-                    'Daily/Weekly KPI Tracking & Monitoring',
-                    'Data Reconciliation & Verification',
-                    'Creating daily/weekly MIS reports for management'
-                ]
+                points: ['Advanced Excel (XLOOKUP, Pivot Tables, Automation)', 'Daily/Weekly KPI Tracking & Monitoring', 'Data Reconciliation & Verification', 'Creating daily/weekly MIS reports for management']
             }
         };
 
@@ -570,7 +613,7 @@
             if(e.target === this) closeModal();
         });
 
-        // --- EFFECTS ONLY FOR DESKTOP ---
+        // --- 5. DESKTOP EFFECTS ---
         if(!isTouchDevice) {
             const magneticBtns = document.querySelectorAll('.magnetic');
             magneticBtns.forEach(btn => {
@@ -613,24 +656,20 @@
             });
         }
 
-        // --- SCROLL REVEAL & PROGRESS BAR ANIMATION ---
+        // --- 6. SCROLL REVEAL & PROGRESS BAR ---
         const reveals = document.querySelectorAll(".reveal");
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => { 
                 if (entry.isIntersecting) {
                     entry.target.classList.add("active");
-                    
-                    // Animate progress bars inside this section
                     const bars = entry.target.querySelectorAll('.progress-fill');
-                    bars.forEach(bar => {
-                        bar.style.width = bar.getAttribute('data-width');
-                    });
+                    bars.forEach(bar => { bar.style.width = bar.getAttribute('data-width'); });
                 }
             });
         }, { threshold: 0.15 });
         reveals.forEach(reveal => revealObserver.observe(reveal));
 
-        // --- LOOPING TYPEWRITER ANIMATION ---
+        // --- 7. TYPEWRITER ANIMATION ---
         const aboutSection = document.getElementById('about');
         const target = document.getElementById('typewriter-text');
         const text = "I am a detail-oriented Data Analyst with a strong foundation in Physics and 1 year of hands-on experience in transforming complex, multi-channel operational data into actionable business insights. I specialize in Power BI, Advanced Excel, and SQL, with a proven track record of automating reporting processes and saving over 35% of manual effort.";
