@@ -23,7 +23,7 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* --- 1. CUSTOM SCROLLBAR --- */
+        /* CUSTOM SCROLLBAR */
         ::-webkit-scrollbar { width: 10px; }
         ::-webkit-scrollbar-track { background: var(--bg); }
         ::-webkit-scrollbar-thumb { background: var(--sql-blue); border-radius: 5px; }
@@ -36,6 +36,18 @@
             perspective: 1000px;
         }
 
+        /* --- 1. PRELOADER --- */
+        #preloader {
+            position: fixed; inset: 0; background: var(--bg); z-index: 99999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            transition: opacity 0.8s ease;
+        }
+        .loader-text { font-family: 'Syne', sans-serif; font-size: 1.2rem; letter-spacing: 2px; color: var(--sql-blue); margin-bottom: 20px; animation: pulse 1.5s infinite; }
+        .loader-bar { width: 200px; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; }
+        .loader-progress { width: 0%; height: 100%; background: var(--sql-blue); animation: loadAnim 1.5s ease forwards; }
+        @keyframes loadAnim { 0% { width: 0%; } 100% { width: 100%; } }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
         /* NAVBAR */
         nav {
             display: flex; justify-content: space-between; align-items: center;
@@ -47,11 +59,11 @@
         
         .nav-links { display: flex; gap: 30px; }
         .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: 0.3s; }
-        .nav-links a:hover { color: var(--sql-blue); text-shadow: 0 0 10px rgba(96, 165, 250, 0.5); }
+        .nav-links a:hover, .nav-links a.active { color: var(--sql-blue); text-shadow: 0 0 10px rgba(96, 165, 250, 0.5); }
 
         .menu-btn { display: none; font-size: 1.5rem; color: #fff; cursor: pointer; }
 
-        /* --- 2. MOBILE MENU --- */
+        /* MOBILE MENU */
         .mobile-menu {
             position: fixed; top: 65px; left: 0; width: 100%; 
             background: rgba(6, 7, 10, 0.95); backdrop-filter: blur(20px);
@@ -131,11 +143,18 @@
         
         .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; }
         
+        /* --- 2. SHINE EFFECT ON CARDS --- */
         .bento-card {
             background: var(--surface); border: 1px solid var(--border); border-radius: 20px;
             padding: 30px; position: relative; overflow: hidden;
             transition: transform 0.1s ease, border-color 0.3s, box-shadow 0.3s; transform-style: preserve-3d;
         }
+        .bento-card::after {
+            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0) 100%);
+            transform: rotate(45deg); transition: 0.6s; opacity: 0; pointer-events: none;
+        }
+        .bento-card:hover::after { left: 100%; opacity: 1; }
         .bento-card:hover { border-color: rgba(96, 165, 250, 0.4); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
         .bento-content { transform: translateZ(10px); }
 
@@ -148,8 +167,9 @@
         .about-card { grid-column: span 12; }
         .about-text { font-size: 1.05rem; color: var(--text-muted); line-height: 1.8; min-height: 120px; }
         .type-cursor { color: var(--sql-blue); animation: blink 0.8s infinite; }
+        .keyword { color: var(--sql-blue); font-weight: 600; text-shadow: 0 0 8px rgba(96, 165, 250, 0.4); }
 
-        /* --- 3. EXPERIENCE TIMELINE --- */
+        /* Experience */
         .exp-section { grid-column: span 12; }
         .timeline { position: relative; border-left: 2px solid var(--border); padding-left: 30px; margin-left: 10px; }
         .timeline-item { position: relative; margin-bottom: 30px; }
@@ -164,7 +184,7 @@
         .timeline-item ul { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; padding-left: 18px; }
         .timeline-item ul li { margin-bottom: 10px; }
 
-        /* --- 4. PROJECTS WITH VIEW BUTTON --- */
+        /* Projects */
         .proj-card { grid-column: span 4; display: flex; flex-direction: column; justify-content: space-between; }
         .proj-card h3 { font-family: 'Syne', sans-serif; font-size: 1.2rem; color: #fff; margin-bottom: 12px; }
         .proj-card p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 15px; }
@@ -228,7 +248,7 @@
         .modal-mis .modal-box { border-color: var(--excel-green); box-shadow: 0 0 50px rgba(16, 185, 129, 0.2); }
         .modal-mis h3 { color: var(--excel-green); }
 
-        /* --- 5. COPY EMAIL TOAST --- */
+        /* COPY EMAIL TOAST */
         .toast {
             position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px);
             background: var(--excel-green); color: white; padding: 12px 24px; border-radius: 50px;
@@ -237,7 +257,7 @@
         }
         .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-        /* --- 6. SCROLL TO TOP BUTTON --- */
+        /* SCROLL TO TOP BUTTON */
         .scroll-top {
             position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px;
             border-radius: 50%; background: var(--sql-blue); color: #fff; border: none;
@@ -301,15 +321,21 @@
 </head>
 <body>
 
+    <!-- 1. PRELOADER -->
+    <div id="preloader">
+        <div class="loader-text">INITIALIZING ANALYTICS...</div>
+        <div class="loader-bar"><div class="loader-progress"></div></div>
+    </div>
+
     <!-- TOAST NOTIFICATION -->
     <div class="toast" id="toast">Email Copied to Clipboard! ✅</div>
 
     <nav>
         <div class="logo">SONAL.K</div>
         <div class="nav-links">
-            <a href="#about">About</a>
-            <a href="#experience">Experience</a>
-            <a href="#projects">Projects</a>
+            <a href="#about" class="nav-link">About</a>
+            <a href="#experience" class="nav-link">Experience</a>
+            <a href="#projects" class="nav-link">Projects</a>
         </div>
         <div class="menu-btn" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></div>
     </nav>
@@ -340,7 +366,6 @@
 
             <div class="contact-info">
                 <a href="https://www.google.com/maps/place/Noida,+Uttar+Pradesh" target="_blank"><i class="fa-solid fa-location-dot"></i> Noida, UP</a>
-                <!-- COPY EMAIL ONCLICK -->
                 <a href="javascript:void(0)" onclick="copyEmail(event)"><i class="fa-solid fa-envelope"></i> sonalkumar660446@gmail.com</a>
                 <a href="tel:+918579932774"><i class="fa-solid fa-phone"></i> +91-8579932774</a>
                 <a href="https://wa.me/918579932774" target="_blank" style="color: #25D366;"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
@@ -370,12 +395,14 @@
         <h2 class="section-title">About Me</h2>
         <div class="bento-grid">
             <div class="bento-card about-card">
-                <p class="about-text"><span id="typewriter-text"></span><span class="type-cursor">|</span></p>
+                <!-- 3. KEYWORD HIGHLIGHTING -->
+                <p class="about-text">
+                    <span id="typewriter-text"></span><span class="type-cursor">|</span>
+                </p>
             </div>
         </div>
     </section>
 
-    <!-- EXPERIENCE TIMELINE -->
     <section id="experience" class="section reveal">
         <h2 class="section-title">Experience</h2>
         <div class="bento-grid">
@@ -404,7 +431,6 @@
         </div>
     </section>
 
-    <!-- PROJECTS WITH VIEW BUTTON -->
     <section id="projects" class="section reveal">
         <h2 class="section-title">Key Projects</h2>
         <div class="bento-grid">
@@ -414,7 +440,6 @@
                     <p>Cleaned and transformed 50,000+ raw sales records using Power Query. Developed custom DAX measures for key metrics. Designed interactive KPI dashboards.</p>
                     <div class="tags"><span class="tag">Power BI</span><span class="tag">DAX</span><span class="tag">Power Query</span></div>
                 </div>
-                <!-- DUMMY LINK: Yahan apna project link daalein -->
                 <a href="#" class="btn-view">View Dashboard <i class="fa-solid fa-arrow-right"></i></a>
             </div>
             <div class="bento-card proj-card tilt-card">
@@ -423,7 +448,6 @@
                     <p>Built an interactive dashboard to monitor complaint volumes and resolution trends. Created DAX-based KPI measures to track service-level performance.</p>
                     <div class="tags"><span class="tag">Power BI</span><span class="tag">Data Viz</span></div>
                 </div>
-                <!-- DUMMY LINK: Yahan apna project link daalein -->
                 <a href="#" class="btn-view">View Dashboard <i class="fa-solid fa-arrow-right"></i></a>
             </div>
             <div class="bento-card proj-card tilt-card">
@@ -432,7 +456,6 @@
                     <p>Analyzed returns and SKU performance across 10,000+ transactions. Developed automated Pivot Table-based MIS reports using XLOOKUP.</p>
                     <div class="tags"><span class="tag">Advanced Excel</span><span class="tag">MIS</span></div>
                 </div>
-                <!-- DUMMY LINK: Yahan apna project link daalein -->
                 <a href="#" class="btn-view">View Dashboard <i class="fa-solid fa-arrow-right"></i></a>
             </div>
         </div>
@@ -527,13 +550,19 @@
         </div>
     </section>
 
-    <!-- SCROLL TO TOP BUTTON -->
     <button id="scrollTop" class="scroll-top"><i class="fa-solid fa-arrow-up"></i></button>
 
     <script>
+        // --- PRELOADER ---
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            preloader.style.opacity = '0';
+            setTimeout(() => { preloader.style.display = 'none'; }, 800);
+        });
+
         const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-        // --- 1. COPY EMAIL LOGIC ---
+        // --- COPY EMAIL ---
         function copyEmail(event) {
             event.preventDefault();
             const email = "sonalkumar660446@gmail.com";
@@ -544,51 +573,49 @@
             });
         }
 
-        // --- 2. MOBILE MENU ---
+        // --- MOBILE MENU ---
         function toggleMenu() {
             document.getElementById('mobileMenu').classList.toggle('active');
         }
 
-        // --- 3. SCROLL TO TOP LOGIC ---
+        // --- SCROLL TO TOP ---
         const scrollTopBtn = document.getElementById('scrollTop');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                scrollTopBtn.classList.add('active');
-            } else {
-                scrollTopBtn.classList.remove('active');
-            }
+            if (window.scrollY > 300) { scrollTopBtn.classList.add('active'); } 
+            else { scrollTopBtn.classList.remove('active'); }
         });
         scrollTopBtn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        // --- 4. MODAL LOGIC ---
+        // --- ACTIVE NAVBAR HIGHLIGHTING ---
+        const sections = document.querySelectorAll("section");
+        const navLinks = document.querySelectorAll(".nav-link");
+        window.addEventListener("scroll", () => {
+            let current = "";
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 150) { current = section.getAttribute("id"); }
+            });
+            navLinks.forEach((link) => {
+                link.classList.remove("active");
+                if (link.getAttribute("href").includes(current)) { link.classList.add("active"); }
+            });
+        });
+
+        // --- MODAL LOGIC ---
         const modalData = {
-            'da': {
-                title: 'Aspiring Data Analyst',
-                desc: 'Equipped with a strong foundation in data analytics, I focus on extracting actionable insights from raw datasets and bridging the gap between technical analysis and business strategy.',
-                points: ['Exploratory Data Analysis (EDA) & Trend Identification', 'Data Cleaning & Preparation (100% accuracy)', 'SQL Querying & Database Management', 'Translating complex data into actionable reports']
-            },
-            'pbi': {
-                title: 'Interactive Dashboard Developer',
-                desc: 'I transform raw operational data into visually compelling, interactive dashboards that drive decision-making and track live KPIs.',
-                points: ['Data Modeling & Creating Star Schemas', 'DAX Mastery (Time Intelligence, MoM growth)', 'Power Query Automation & Data Transformation', 'Designing clean, executive-ready UI/UX reports']
-            },
-            'mis': {
-                title: 'Operations & Reporting Specialist',
-                desc: 'With 1 year of hands-on experience, I manage daily operations data, automate reporting processes, and ensure 100% accuracy to support management decisions.',
-                points: ['Advanced Excel (XLOOKUP, Pivot Tables, Automation)', 'Daily/Weekly KPI Tracking & Monitoring', 'Data Reconciliation & Verification', 'Creating daily/weekly MIS reports for management']
-            }
+            'da': { title: 'Aspiring Data Analyst', desc: 'Equipped with a strong foundation in data analytics, I focus on extracting actionable insights from raw datasets and bridging the gap between technical analysis and business strategy.', points: ['Exploratory Data Analysis (EDA) & Trend Identification', 'Data Cleaning & Preparation (100% accuracy)', 'SQL Querying & Database Management', 'Translating complex data into actionable reports'] },
+            'pbi': { title: 'Interactive Dashboard Developer', desc: 'I transform raw operational data into visually compelling, interactive dashboards that drive decision-making and track live KPIs.', points: ['Data Modeling & Creating Star Schemas', 'DAX Mastery (Time Intelligence, MoM growth)', 'Power Query Automation & Data Transformation', 'Designing clean, executive-ready UI/UX reports'] },
+            'mis': { title: 'Operations & Reporting Specialist', desc: 'With 1 year of hands-on experience, I manage daily operations data, automate reporting processes, and ensure 100% accuracy to support management decisions.', points: ['Advanced Excel (XLOOKUP, Pivot Tables, Automation)', 'Daily/Weekly KPI Tracking & Monitoring', 'Data Reconciliation & Verification', 'Creating daily/weekly MIS reports for management'] }
         };
 
         function openModal(type) {
             const data = modalData[type];
             const modalBox = document.getElementById('modalBox');
             const modalOverlay = document.getElementById('roleModal');
-            
             document.getElementById('modalTitle').innerText = data.title;
             document.getElementById('modalDesc').innerText = data.desc;
-            
             const ul = document.getElementById('modalList');
             ul.innerHTML = '';
             data.points.forEach(point => {
@@ -596,24 +623,17 @@
                 li.innerText = point;
                 ul.appendChild(li);
             });
-
             modalBox.className = 'modal-box';
             if(type === 'da') modalBox.classList.add('modal-da');
             if(type === 'pbi') modalBox.classList.add('modal-pbi');
             if(type === 'mis') modalBox.classList.add('modal-mis');
-
             modalOverlay.classList.add('active');
         }
 
-        function closeModal() {
-            document.getElementById('roleModal').classList.remove('active');
-        }
+        function closeModal() { document.getElementById('roleModal').classList.remove('active'); }
+        document.getElementById('roleModal').addEventListener('click', function(e) { if(e.target === this) closeModal(); });
 
-        document.getElementById('roleModal').addEventListener('click', function(e) {
-            if(e.target === this) closeModal();
-        });
-
-        // --- 5. DESKTOP EFFECTS ---
+        // --- DESKTOP EFFECTS ---
         if(!isTouchDevice) {
             const magneticBtns = document.querySelectorAll('.magnetic');
             magneticBtns.forEach(btn => {
@@ -656,7 +676,7 @@
             });
         }
 
-        // --- 6. SCROLL REVEAL & PROGRESS BAR ---
+        // --- SCROLL REVEAL & PROGRESS BAR ---
         const reveals = document.querySelectorAll(".reveal");
         const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => { 
@@ -669,27 +689,48 @@
         }, { threshold: 0.15 });
         reveals.forEach(reveal => revealObserver.observe(reveal));
 
-        // --- 7. TYPEWRITER ANIMATION ---
+        // --- TYPEWRITER WITH KEYWORD HIGHLIGHTING ---
         const aboutSection = document.getElementById('about');
         const target = document.getElementById('typewriter-text');
-        const text = "I am a detail-oriented Data Analyst with a strong foundation in Physics and 1 year of hands-on experience in transforming complex, multi-channel operational data into actionable business insights. I specialize in Power BI, Advanced Excel, and SQL, with a proven track record of automating reporting processes and saving over 35% of manual effort.";
+        // Adding HTML tags for keywords here
+        const text = "I am a detail-oriented Data Analyst with a strong foundation in Physics and 1 year of hands-on experience in transforming complex, multi-channel operational data into actionable business insights. I specialize in <span class='keyword'>Power BI</span>, <span class='keyword'>Advanced Excel</span>, and <span class='keyword'>SQL</span>, with a proven track record of automating reporting processes and saving over <span class='keyword'>35%</span> of manual effort.";
         
         let i = 0;
         let isVisible = false;
         let typingTimeout;
+        let isTag = false;
+        let currentHTML = "";
 
         function startTyping() {
             if (!isVisible) return;
             target.innerHTML = "";
+            currentHTML = "";
             i = 0;
+            
             function type() {
                 if (!isVisible) return;
                 if (i < text.length) {
-                    target.innerHTML += text.charAt(i);
+                    let char = text.charAt(i);
+                    
+                    // Check if we are entering an HTML tag
+                    if (char === '<') { isTag = true; }
+                    
+                    currentHTML += char;
+                    
+                    if (char === '>') { isTag = false; }
+                    
+                    target.innerHTML = currentHTML;
                     i++;
-                    typingTimeout = setTimeout(type, 20); 
+                    
+                    // If inside a tag, type instantly. If normal text, type with delay.
+                    let delay = isTag ? 0 : 20;
+                    typingTimeout = setTimeout(type, delay); 
                 } else {
-                    typingTimeout = setTimeout(() => { startTyping(); }, 30000); 
+                    target.innerHTML = currentHTML + '<span class="type-cursor">|</span>';
+                    typingTimeout = setTimeout(() => { 
+                        target.innerHTML = currentHTML; // remove cursor for a sec
+                        startTyping(); 
+                    }, 30000); 
                 }
             }
             type();
